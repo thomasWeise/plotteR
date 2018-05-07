@@ -1,4 +1,4 @@
 library(testthat)
-library(distanceR)
+library(plotteR)
 
-test_check("distanceR")
+test_check("plotteR")
