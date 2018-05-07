@@ -1,0 +1,21 @@
+Package: plotteR
+Type: Package
+Title: An R Package with Utilities for Graphics and Plots 
+Version: 0.8.0
+Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Description: Here we have some utilities for graphics and plots.
+License: LGPL-3
+Encoding: UTF-8
+URL: http://www.github.com/thomasWeise/plotteR
+BugReports: http://www.github.com/thomasWeise/plotteR/issues
+Imports: minqa (>= 1.2.4)
+Suggests: testthat (>= 2.0.0),
+          devtools (>= 1.13.5),
+          roxygen2 (>= 6.0.1)
+ByteCompile: true
+LazyData: true
+RoxygenNote: 6.0.1.9000
+Collate: 
+    'sampleDistinct.R'
+    'distinctColors.R'
