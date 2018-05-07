@@ -15,7 +15,7 @@ batchPlot.groups(data, extract = identity, xfun = function(d) d$x,
 
 \item{extract}{a function which extracts a list of data elements from each
 element of \code{data}. This list will then be passed on to
-\code{\link{batchPlat.list}}.}
+\code{\link{batchPlot.list}}.}
 
 \item{xfun}{a function which receives an element from the \code{data} list
 and extracts a vector of \code{x}-coordinates from it}

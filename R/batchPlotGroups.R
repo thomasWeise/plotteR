@@ -3,7 +3,7 @@
 #' @param data the data object, could be a list of lists or anything
 #' @param extract a function which extracts a list of data elements from each
 #'   element of \code{data}. This list will then be passed on to
-#'   \code{\link{batchPlat.list}}.
+#'   \code{\link{batchPlot.list}}.
 #' @param log the names of the axes (\code{x}, \code{y}) that should be
 #'   logarithmically scaled
 #' @param xfun a function which receives an element from the \code{data} list
