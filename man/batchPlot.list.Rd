@@ -53,8 +53,6 @@ is needed}
 
 \item{legendPos}{the position of the legend, if a legend should be printed
 (see \code{names}), or \code{NULL} if no legend is needed}
-
-\item{results}{an instance or list of \code{\link{RegressionResult}}}
 }
 \description{
 A simple utility method for visualizing a list of data data.

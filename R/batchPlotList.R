@@ -1,6 +1,5 @@
 #' @title Plot a Set of Curves from a List of Data
 #' @description A simple utility method for visualizing a list of data data.
-#' @param results an instance or list of \code{\link{RegressionResult}}
 #' @param data the data object, could be a list of lists or anything
 #' @param log the names of the axes (\code{x}, \code{y}) that should be
 #'   logarithmically scaled
