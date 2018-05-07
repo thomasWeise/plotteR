@@ -14,4 +14,8 @@ a vector of \code{n} distinct colors
 }
 \description{
 Get a list of \code{n} distinct colors.
+This is currently just a very preliminary method, not beautiful and far from
+optimal. For instance, if more colors are required than what the internally
+pre-defined palettes can do, we try to uniformly sample from the RGB space
+with the goal to get maximally distant colors.
 }

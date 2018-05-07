@@ -9,7 +9,6 @@ License: LGPL-3
 Encoding: UTF-8
 URL: http://www.github.com/thomasWeise/plotteR
 BugReports: http://www.github.com/thomasWeise/plotteR/issues
-Imports: minqa (>= 1.2.4)
 Suggests: testthat (>= 2.0.0),
           devtools (>= 1.13.5),
           roxygen2 (>= 6.0.1)

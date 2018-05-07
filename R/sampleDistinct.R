@@ -3,6 +3,8 @@
 .f <- function(vec) {
   mat  <- matrix(c(0, 0, 0, 1, 1, 1, vec), nrow=3L);
   cols <- 2L + (length(vec) %/% 3L);
+  # compute the distance from each point to every other point
+  # but do not consider the distance between (0) and (1)
   -sum(vapply(X=seq.int(from=3L, to=cols, by=1L),
              FUN=function(i) {
                 min(vapply(X=seq.int(from=1L, to=(i-1L), by=1L),
@@ -12,22 +14,20 @@
 }
 
 # Get a matrix of maximally distinct points
-#' @importFrom minqa bobyqa
 .sampleDistinct<- function(n) {
   dim <- 3L*n;
+
   par <- runif(n=dim);
   q   <- .f(par);
-  for(i in 1:5) {
-    result <- bobyqa(par=runif(n=dim),
-                     fn=.f,
-                     lower=rep(x=0, times=dim),
-                     upper=rep(x=1, times=dim));
-    if(!(is.null(result))) {
-      if(is.finite(result$fval) && all(is.finite(result$par)) && (result$fval < q)) {
-        par <- result$par;
-        q   <- result$fval;
-      }
+
+  for(i in seq_len(3*n)) {
+    result <- runif(n=dim);
+    result.q   <- .f(result);
+    if(result.q < q) {
+      par <- result;
+      q   <- result.q;
     }
   }
+
   return(matrix(par, nrow=3L));
 }
