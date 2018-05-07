@@ -11,6 +11,8 @@
 #' @return a vector of \code{n} distinct colors
 #' @export colors.distinct
 #' @include sampleDistinct.R
+#' @importFrom grDevices rgb
+#' @importFrom stats runif
 colors.distinct <- function(n) {
   if(n <= 0L) { return(c()); }
 

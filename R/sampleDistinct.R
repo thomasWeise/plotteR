@@ -14,6 +14,7 @@
 }
 
 # Get a matrix of maximally distinct points
+#' @importFrom stats runif
 .sampleDistinct<- function(n) {
   dim <- 3L*n;
 
