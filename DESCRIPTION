@@ -20,3 +20,4 @@ Collate:
     'sampleDistinct.R'
     'distinctColors.R'
     'batchPlotList.R'
+    'batchPlotGroups.R'

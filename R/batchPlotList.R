@@ -1,5 +1,5 @@
 #' @title Plot a Set of Curves from a List of Data
-#' @description A simple utility method for visualizing a list of data data.
+#' @description A simple utility method for visualizing a list of data.
 #' @param data the data object, could be a list of lists or anything
 #' @param log the names of the axes (\code{x}, \code{y}) that should be
 #'   logarithmically scaled
@@ -30,10 +30,8 @@
 #' @param legendPos the position of the legend, if a legend should be printed
 #'   (see \code{names}), or \code{NULL} if no legend is needed
 #' @include distinctColors.R
-#' @importFrom graphics plot points lines legend
 #' @export batchPlot.list
 batchPlot.list <- function(data,
-                           log="",
                            xfun=function(d) d$x,
                            yfun=function(d) d$y,
                            ffun=function(d, x) yfun(d),
@@ -41,6 +39,7 @@ batchPlot.list <- function(data,
                            widthXY=0.5,
                            plotXF=TRUE,
                            widthXF=1.5,
+                           log="",
                            names=NULL,
                            colors=colors.distinct(length(data)),
                            xlab="",
@@ -56,6 +55,7 @@ batchPlot.list <- function(data,
 
 
 # the internal implementation which is also used by data groups
+#' @importFrom graphics plot points lines legend
 .batchPlot.list <- function(data, log, xfun, yfun, ffun, plotXY, widthXY, plotXF,
                            widthXF, names, colors, legendColors, xlab, ylab,
                            legendPos) {
