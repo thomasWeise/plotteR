@@ -9,7 +9,7 @@ License: LGPL-3
 Encoding: UTF-8
 URL: http://www.github.com/thomasWeise/plotteR
 BugReports: http://www.github.com/thomasWeise/plotteR/issues
-Imports: graphics (>= 3.4.2)
+Imports: graphics (>= 3.3.2)
 Suggests: testthat (>= 2.0.0),
           devtools (>= 1.13.5),
           roxygen2 (>= 6.0.1)
@@ -19,4 +19,4 @@ RoxygenNote: 6.0.1.9000
 Collate: 
     'sampleDistinct.R'
     'distinctColors.R'
-    'batchPlot.R'
+    'batchPlotList.R'

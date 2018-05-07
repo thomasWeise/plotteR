@@ -1,4 +1,4 @@
-#' @title Plot a Set of Curves from Some Data
+#' @title Plot a Set of Curves from a List of Data
 #' @description A simple utility method for visualizing a list of data data.
 #' @param results an instance or list of \code{\link{RegressionResult}}
 #' @param data the data object, could be a list of lists or anything
@@ -32,8 +32,8 @@
 #'   (see \code{names}), or \code{NULL} if no legend is needed
 #' @include distinctColors.R
 #' @importFrom graphics plot points lines legend
-#' @export data.batchPlot
-data.batchPlot <- function(data,
+#' @export batchPlot.list
+batchPlot.list <- function(data,
                            log="",
                            xfun=function(d) d$x,
                            yfun=function(d) d$y,
@@ -47,11 +47,24 @@ data.batchPlot <- function(data,
                            xlab="",
                            ylab="",
                            legendPos="topright") {
+  .batchPlot.list(data=data, log=log, xfun=xfun, yfun=yfun,
+                  ffun=ffun, plotXY=plotXY, widthXY=widthXY,
+                  plotXF=plotXF, widthXF=widthXF, names=names,
+                  colors=colors, legendColors=colors, xlab=xlab,
+                  ylab=ylab, legendPos=legendPos);
+}
+
+
+
+# the internal implementation which is also used by data groups
+.batchPlot.list <- function(data, log, xfun, yfun, ffun, plotXY, widthXY, plotXF,
+                           widthXF, names, colors, legendColors, xlab, ylab,
+                           legendPos) {
 
   stopifnot( ((plotXY && (widthXY > 0)) || (plotXF && (widthXF > 0))) &&
-              (widthXY >= 0) && (widthXF >= 0) &&
-              (!(is.null(colors))) &&
-              (identical(length(data), length(colors))));
+               (widthXY >= 0) && (widthXF >= 0) &&
+               (!(is.null(colors))) &&
+               (identical(length(data), length(colors))));
 
   x.min <- +Inf;
   y.min <- +Inf;
@@ -87,7 +100,7 @@ data.batchPlot <- function(data,
                  });
   stopifnot(identical(length(data), length(colors)));
 
-# get the x and y coordinate ranges
+  # get the x and y coordinate ranges
   for(d in data) {
     x <- d$x;
     x.min <- min(x.min, x);
@@ -131,10 +144,10 @@ data.batchPlot <- function(data,
 
   # should we have a legend
   if(!(is.null(legendPos) || is.null(names))) {
-    stopifnot(identical(length(names), length(colors)));
+    stopifnot(identical(length(names), length(legendColors)));
     # add a legend to the plot
     legend(legendPos,
-           text.col=colors,
+           text.col=legendColors,
            legend=names);
   }
 }
