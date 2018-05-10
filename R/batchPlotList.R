@@ -23,6 +23,8 @@
 #' @param colors the colors to be used for the plot
 #' @param legendPos the position of the legend, if a legend should be printed
 #'   (see \code{names}), or \code{NULL} if no legend is needed
+#' @param xlab the label for the x-axis
+#' @param ylab the label for the y-axis
 #' @inheritDotParams graphics::plot -x -y
 #' @include distinctColors.R
 #' @export batchPlot.list
@@ -38,6 +40,8 @@ batchPlot.list <- function(data,
                            names=NULL,
                            colors=colors.distinct(length(data)),
                            legendPos="topright",
+                           xlab="",
+                           ylab="",
                            ...) {
   .batchPlot.list(data=data, xfun=xfun, yfun=yfun,
                   ffun=ffun, plotXY=plotXY, widthXY=widthXY,
@@ -113,7 +117,7 @@ batchPlot.list <- function(data,
   }
 
   # create the dummy plot
-  plot(x=c(x.min, x.max), y=c(y.min, y.max), type="n", ...);
+  plot(x=c(x.min, x.max), y=c(y.min, y.max), type="n", xlab=xlab, ylab=ylab, ...);
 
   # actually paint the plot
   for(index in seq_along(data)) {

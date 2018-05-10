@@ -39,6 +39,8 @@ computes a vector of \code{y}-coordinates from it to be plotted as line, or
 \code{NULL} if no legend should be plotted}
   \item{legendPos}{the position of the legend, if a legend should be printed
 (see \code{names}), or \code{NULL} if no legend is needed}
+  \item{xlab}{the label for the x-axis}
+  \item{ylab}{the label for the y-axis}
 }}
 }
 \description{

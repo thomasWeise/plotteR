@@ -7,7 +7,8 @@
 batchPlot.list(data, xfun = function(d) d$x, yfun = function(d) d$y,
   ffun = function(d, x) yfun(d), plotXY = TRUE, widthXY = 0.5,
   plotXF = TRUE, widthXF = 1.5, names = NULL,
-  colors = colors.distinct(length(data)), legendPos = "topright", ...)
+  colors = colors.distinct(length(data)), legendPos = "topright",
+  xlab = "", ylab = "", ...)
 }
 \arguments{
 \item{data}{the data object, could be a list of lists or anything}
@@ -43,6 +44,10 @@ computes a vector of \code{y}-coordinates from it to be plotted as line, or
 
 \item{legendPos}{the position of the legend, if a legend should be printed
 (see \code{names}), or \code{NULL} if no legend is needed}
+
+\item{xlab}{the label for the x-axis}
+
+\item{ylab}{the label for the y-axis}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{
