@@ -47,16 +47,27 @@ batchPlot.list <- function(data,
                   ffun=ffun, plotXY=plotXY, widthXY=widthXY,
                   plotXF=plotXF, widthXF=widthXF, names=names,
                   colors=colors, legendColors=colors,
-                  legendPos=legendPos, ...);
+                  legendPos=legendPos, xlab=xlab, ylab=ylab, ...);
 }
 
 
 
 # the internal implementation which is also used by data groups
 #' @importFrom graphics plot points lines legend
-.batchPlot.list <- function(data, xfun, yfun, ffun, plotXY, widthXY, plotXF,
-                           widthXF, names, colors, legendColors,
-                           legendPos, ...) {
+.batchPlot.list <- function(data,
+                            xfun=function(d) d$x,
+                            yfun=function(d) d$y,
+                            ffun=function(d, x) yfun(d),
+                            plotXY=TRUE,
+                            widthXY=0.5,
+                            plotXF=TRUE,
+                            widthXF=1.5,
+                            names=NULL,
+                            colors=colors.distinct(length(data)),
+                            legendColors=colors,
+                            legendPos="topright",
+                            xlab="",
+                            ylab="", ...) {
 
   stopifnot( ((plotXY && (widthXY > 0)) || (plotXF && (widthXF > 0))) &&
                (widthXY >= 0) && (widthXF >= 0) &&
