@@ -1,8 +1,6 @@
 #' @title Plot a Set of Curves from a List of Data
 #' @description A simple utility method for visualizing a list of data.
 #' @param data the data object, could be a list of lists or anything
-#' @param log the names of the axes (\code{x}, \code{y}) that should be
-#'   logarithmically scaled
 #' @param xfun a function which receives an element from the \code{data} list
 #'   and extracts a vector of \code{x}-coordinates from it
 #' @param yfun a function which receives an element from the \code{data} list
@@ -23,14 +21,12 @@
 #' @param names the names of the lines to be printed in the legend, or
 #'   \code{NULL} if no legend should be plotted
 #' @param colors the colors to be used for the plot
-#' @param xlab the label for the \code{x}-axis, or the empty string if no label
-#'   is needed
-#' @param ylab the label for the \code{y}-axis, or the empty string if no label
-#'   is needed
 #' @param legendPos the position of the legend, if a legend should be printed
 #'   (see \code{names}), or \code{NULL} if no legend is needed
+#' @inheritDotParams graphics::plot -x -y
 #' @include distinctColors.R
 #' @export batchPlot.list
+#' @importFrom graphics plot
 batchPlot.list <- function(data,
                            xfun=function(d) d$x,
                            yfun=function(d) d$y,
@@ -39,26 +35,24 @@ batchPlot.list <- function(data,
                            widthXY=0.5,
                            plotXF=TRUE,
                            widthXF=1.5,
-                           log="",
                            names=NULL,
                            colors=colors.distinct(length(data)),
-                           xlab="",
-                           ylab="",
-                           legendPos="topright") {
-  .batchPlot.list(data=data, log=log, xfun=xfun, yfun=yfun,
+                           legendPos="topright",
+                           ...) {
+  .batchPlot.list(data=data, xfun=xfun, yfun=yfun,
                   ffun=ffun, plotXY=plotXY, widthXY=widthXY,
                   plotXF=plotXF, widthXF=widthXF, names=names,
-                  colors=colors, legendColors=colors, xlab=xlab,
-                  ylab=ylab, legendPos=legendPos);
+                  colors=colors, legendColors=colors,
+                  legendPos=legendPos, ...);
 }
 
 
 
 # the internal implementation which is also used by data groups
 #' @importFrom graphics plot points lines legend
-.batchPlot.list <- function(data, log, xfun, yfun, ffun, plotXY, widthXY, plotXF,
-                           widthXF, names, colors, legendColors, xlab, ylab,
-                           legendPos) {
+.batchPlot.list <- function(data, xfun, yfun, ffun, plotXY, widthXY, plotXF,
+                           widthXF, names, colors, legendColors,
+                           legendPos, ...) {
 
   stopifnot( ((plotXY && (widthXY > 0)) || (plotXF && (widthXF > 0))) &&
                (widthXY >= 0) && (widthXF >= 0) &&
@@ -119,7 +113,7 @@ batchPlot.list <- function(data,
   }
 
   # create the dummy plot
-  plot(x=c(x.min, x.max), y=c(y.min, y.max), log=log, type="n", xlab=xlab, ylab=ylab);
+  plot(x=c(x.min, x.max), y=c(y.min, y.max), type="n", ...);
 
   # actually paint the plot
   for(index in seq_along(data)) {

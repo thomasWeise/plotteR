@@ -18,8 +18,6 @@ element of \code{data}. This list will then be passed on to
 
 \item{...}{Arguments passed on to \code{batchPlot.list}
 \describe{
-  \item{log}{the names of the axes (\code{x}, \code{y}) that should be
-logarithmically scaled}
   \item{xfun}{a function which receives an element from the \code{data} list
 and extracts a vector of \code{x}-coordinates from it}
   \item{yfun}{a function which receives an element from the \code{data} list
@@ -39,10 +37,6 @@ computes a vector of \code{y}-coordinates from it to be plotted as line, or
 \code{plotXF} is \code{TRUE} and \code{ffun} is not \code{NULL})}
   \item{names}{the names of the lines to be printed in the legend, or
 \code{NULL} if no legend should be plotted}
-  \item{xlab}{the label for the \code{x}-axis, or the empty string if no label
-is needed}
-  \item{ylab}{the label for the \code{y}-axis, or the empty string if no label
-is needed}
   \item{legendPos}{the position of the legend, if a legend should be printed
 (see \code{names}), or \code{NULL} if no legend is needed}
 }}
