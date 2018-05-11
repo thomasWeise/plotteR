@@ -5,7 +5,7 @@
 \title{Plot a Set of Curve Groups from a List of Data Groups}
 \usage{
 batchPlot.groups(data, extract = identity,
-  colors = colors.distinct(length(data)))
+  colors = colors.distinct(length(data)), ...)
 }
 \arguments{
 \item{data}{the data object, could be a list of lists or anything}
@@ -37,10 +37,11 @@ computes a vector of \code{y}-coordinates from it to be plotted as line, or
 \code{plotXF} is \code{TRUE} and \code{ffun} is not \code{NULL})}
   \item{names}{the names of the lines to be printed in the legend, or
 \code{NULL} if no legend should be plotted}
-  \item{legendPos}{the position of the legend, if a legend should be printed
-(see \code{names}), or \code{NULL} if no legend is needed}
   \item{xlab}{the label for the x-axis}
   \item{ylab}{the label for the y-axis}
+  \item{legend}{a list of additional parameters to be passed to
+\code{\link[graphics]{legend}}, or \code{NULL} to use the default
+parameters}
 }}
 }
 \description{

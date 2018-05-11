@@ -21,10 +21,11 @@
 #' @param names the names of the lines to be printed in the legend, or
 #'   \code{NULL} if no legend should be plotted
 #' @param colors the colors to be used for the plot
-#' @param legendPos the position of the legend, if a legend should be printed
-#'   (see \code{names}), or \code{NULL} if no legend is needed
 #' @param xlab the label for the x-axis
 #' @param ylab the label for the y-axis
+#' @param legend a list of additional parameters to be passed to
+#'   \code{\link[graphics]{legend}}, or \code{NULL} to use the default
+#'   parameters
 #' @inheritDotParams graphics::plot -x -y
 #' @include distinctColors.R
 #' @export batchPlot.list
@@ -39,15 +40,16 @@ batchPlot.list <- function(data,
                            widthXF=1.5,
                            names=NULL,
                            colors=colors.distinct(length(data)),
-                           legendPos="topright",
                            xlab="",
                            ylab="",
+                           legend=NULL,
                            ...) {
   .batchPlot.list(data=data, xfun=xfun, yfun=yfun,
                   ffun=ffun, plotXY=plotXY, widthXY=widthXY,
                   plotXF=plotXF, widthXF=widthXF, names=names,
                   colors=colors, legendColors=colors,
-                  legendPos=legendPos, xlab=xlab, ylab=ylab, ...);
+                  legend=legend,
+                  xlab=xlab, ylab=ylab, ...);
 }
 
 
@@ -65,7 +67,7 @@ batchPlot.list <- function(data,
                             names=NULL,
                             colors=colors.distinct(length(data)),
                             legendColors=colors,
-                            legendPos="topright",
+                            legend=NULL,
                             xlab="",
                             ylab="", ...) {
 
@@ -151,11 +153,24 @@ batchPlot.list <- function(data,
   }
 
   # should we have a legend
-  if(!(is.null(legendPos) || is.null(names))) {
+  if(!(is.null(names))) {
     stopifnot(identical(length(names), length(legendColors)));
+    if(missing(legend) || is.null(legend)) {
+      legend <- list();
+    }
+    legend$text.col = legendColors;
+    legend$col = legendColors;
+
+    legend$legend = names;
+    if(is.null(legend$x)) {
+      legend$x <- "topright";
+    }
+    if(is.null(legend$lwd)) {
+      if(plotXF) { legend$lwd <- widthXF; }
+      else { if(plotXY) { legend$lwd <- widthXY; } }
+    }
+
     # add a legend to the plot
-    legend(legendPos,
-           text.col=legendColors,
-           legend=names);
+    do.call(graphics::legend, legend);
   }
 }
