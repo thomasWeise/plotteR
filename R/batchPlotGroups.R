@@ -9,6 +9,7 @@
 #' @include distinctColors.R
 #' @include batchPlotList.R
 #' @export batchPlot.groups
+#' @example examples/batchPlotGroups.R
 batchPlot.groups <- function(data,
                              extract=identity,
                              colors=colors.distinct(length(data)),
