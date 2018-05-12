@@ -2,15 +2,15 @@
 
 [<img alt="Travis CI Build Status" src="https://img.shields.io/travis/thomasWeise/plotteR/master.svg" height="20"/>](https://travis-ci.org/thomasWeise/plotteR/)
 
-## Introduction
+## 1. Introduction
 
 In this package, we put some simple utilities for graphics and plots.
 The main goal is to provide some wrapper around the `plot` function to make it easier to plot several data sets coming from a list (`batchPlot.list`) or a list of objects/lists (`batchPlot.groups`).
 These plots then can automatically use distinctive colors.
 
-## Examples
+## 2. Examples
 
-### `batchPlot.list`
+### 2.1. `batchPlot.list`
 
 ![Example image for `batchPlot.list`](examples/batchPlotList.png)
 
@@ -44,7 +44,7 @@ These plots then can automatically use distinctive colors.
                    legend=list(x="bottom", horiz=TRUE));
 
 
-### `batchPlot.groups`
+### 2.2. `batchPlot.groups`
 
 ![Example image for `batchPlot.groups`](examples/batchPlotGroups.png)
 
@@ -90,7 +90,7 @@ These plots then can automatically use distinctive colors.
                      legend=list(x="bottom", horiz=TRUE));
 
 
-## Installation
+## 3. Installation
 
 You can install the package directl from GitHub by using the package
 [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html) as
@@ -103,12 +103,12 @@ If `devtools` is not yet installed on your machine, you need to FIRST do
 
     install.packages("devtools")
 
-## License
+## 4. License
 
 The copyright holder of this package is Prof. Dr. Thomas Weise (see Contact).
 The package is licensed under the  GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007.
 
-## Contact
+## 5. Contact
 
 If you have any questions or suggestions, please contact
 [Prof. Dr. Thomas Weise](http://iao.hfuu.edu.cn/team/director) of the
