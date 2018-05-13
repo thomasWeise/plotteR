@@ -15,6 +15,7 @@
 
 # Get a matrix of maximally distinct points
 #' @importFrom stats runif
+#' @importFrom minqa bobyqa
 .sampleDistinct<- function(n) {
   dim <- 3L*n;
 
@@ -30,5 +31,15 @@
     }
   }
 
+  if(n < 50) {
+    suppressWarnings({
+      result <- bobyqa(par=par, fn=.f, lower=0, upper=1, control=list(maxfun=3*n));
+      if(!(is.null(result))) {
+        if(is.finite(result$fval) && (result$feval < 0) && (result$feval < q)) {
+          par <- result$par;
+        }
+      }
+    });
+  }
   return(matrix(par, nrow=3L));
 }
