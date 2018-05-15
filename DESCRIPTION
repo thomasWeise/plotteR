@@ -23,3 +23,6 @@ Collate:
     'distinctColors.R'
     'batchPlotList.R'
     'batchPlotGroups.R'
+    'goldenRatio.R'
+    'plotSize.R'
+    'plotsArrange.R'

@@ -3,6 +3,8 @@
 export(batchPlot.groups)
 export(batchPlot.list)
 export(colors.distinct)
+export(plots.arrange)
+export(plots.size)
 importFrom(grDevices,rgb)
 importFrom(graphics,legend)
 importFrom(graphics,lines)
