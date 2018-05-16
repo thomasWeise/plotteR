@@ -23,6 +23,5 @@ examples <- lapply(X=f, FUN=make.example);
 # plot the original data
 batchPlot.list(examples,
                names=c("f1", "f2", "f3"),
-               ffun = function(l, x) l$f(x),
                main="Original Data and Function Values for x",
                legend=list(x="bottom", horiz=TRUE));

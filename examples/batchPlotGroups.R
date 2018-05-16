@@ -34,7 +34,6 @@ examples <- lapply(X=f, FUN=function(example) {
 # plot the original data
 batchPlot.groups(examples,
                  names=c("f1", "f2", "f3"),
-                 ffun = function(l, x) l$f(x),
                  main="Several Groups of Functions",
                  plotXY=FALSE, plotXF=TRUE,
                  legend=list(x="bottom", horiz=TRUE));

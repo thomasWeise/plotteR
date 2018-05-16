@@ -24,9 +24,9 @@ and extracts a vector of \code{x}-coordinates from it}
 and extracts a vector of \code{y}-coordinates from it to be plotted as
 points, or \code{NULL} if no points should be plotted (see \code{plotXY})}
   \item{ffun}{a function which receives an element from the \code{data} list
-and the corresponding extracted \code{x}-coordinates and extracts or
-computes a vector of \code{y}-coordinates from it to be plotted as line, or
-\code{NULL} if no points should be plotted (see \code{plotXF})}
+and extracts a unary function from it to be plotted over the extracted
+\code{x} coordinates, or \code{NULL} if no points should be plotted (see
+\code{plotXF})}
   \item{plotXY}{should the \code{x-y} points be plotted (if \code{yfun} is not
 \code{NULL})}
   \item{widthXY}{the line width for points to be plotted (only considered if
@@ -42,6 +42,25 @@ computes a vector of \code{y}-coordinates from it to be plotted as line, or
   \item{legend}{a list of additional parameters to be passed to
 \code{\link[graphics]{legend}}, or \code{NULL} to use the default
 parameters}
+  \item{x.min.lower}{a lower bound for the automatically computed \code{x}
+coordinate minimum}
+  \item{x.min.upper}{an upper bound for the automatically computed \code{x}
+coordinate minimum}
+  \item{x.max.lower}{a lower bound for the automatically computed \code{x}
+coordinate maximum}
+  \item{x.max.upper}{an upper bound for the automatically computed \code{x}
+coordinate maximum}
+  \item{y.min.lower}{a lower bound for the automatically computed \code{y}
+coordinate minimum}
+  \item{y.min.upper}{an upper bound for the automatically computed \code{y}
+coordinate minimum}
+  \item{y.max.lower}{a lower bound for the automatically computed \code{y}
+coordinate maximum}
+  \item{y.max.upper}{an upper bound for the automatically computed \code{y}
+coordinate maximum}
+  \item{x.add}{some additional \code{x} coordinates at which the function
+should be evaluated, or \code{TRUE} if the \code{x} coordinate minimum and
+maximum over all data sets should be added as evaluation points}
 }}
 }
 \description{
@@ -84,7 +103,6 @@ examples <- lapply(X=f, FUN=function(example) {
 # plot the original data
 batchPlot.groups(examples,
                  names=c("f1", "f2", "f3"),
-                 ffun = function(l, x) l$f(x),
                  main="Several Groups of Functions",
                  plotXY=FALSE, plotXF=TRUE,
                  legend=list(x="bottom", horiz=TRUE));
