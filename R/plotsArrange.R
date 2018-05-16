@@ -24,17 +24,21 @@
 }
 
 #' @title Find a Proper Numbers of Rows and Columns for \code{n} Plots
-#' @description Given a number \code{n} of plots, find proper numbers of rows and columns in which these plots can be arranged.
+#' @description Given a number \code{n} of plots, find proper numbers of rows
+#'   and columns in which these plots can be arranged.
 #' @param n the number of plots
-#' @return a vector \code{c(rows, columns)} with the number of rows and columns in which these plots can be arranged.
+#' @param portrait should the arrangement be considered for portrait
+#'   (\code{TRUE}) or landscape (\code{FALSE}) formats?
+#' @return a vector \code{c(rows, columns)} with the number of rows and columns
+#'   in which these plots can be arranged.
 #' @export plots.arrange
-plots.arrange <- function(n) {
+plots.arrange <- function(n, portrait=TRUE) {
   stopifnot(is.finite(n));
   n <- as.integer(n);
 
   if(n <= 1) { return(c(1L, 1L)); }
-  if(n <= 2) { return(c(1L, 2L)); }
-  if(n <= 3) { return(c(1L, 3L)); }
+  if(n <= 2) { return(if(portrait) c(2L, 1L) else c(1L, 2L)); }
+  if(n <= 3) { return(if(portrait) c(3L, 1L) else c(1L, 3L)); }
   if(n <= 4) { return(c(2L, 2L)); }
 
   best.i <- n;
@@ -51,5 +55,5 @@ plots.arrange <- function(n) {
     }
   }
 
-  return(as.integer(c(best.i, best.j)));
+  return(as.integer(if(portrait) c(best.j, best.i) else c(best.i, best.j)));
 }

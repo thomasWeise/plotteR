@@ -4,14 +4,19 @@
 \alias{plots.arrange}
 \title{Find a Proper Numbers of Rows and Columns for \code{n} Plots}
 \usage{
-plots.arrange(n)
+plots.arrange(n, portrait = TRUE)
 }
 \arguments{
 \item{n}{the number of plots}
+
+\item{portrait}{should the arrangement be considered for portrait
+(\code{TRUE}) or landscape (\code{FALSE}) formats?}
 }
 \value{
-a vector \code{c(rows, columns)} with the number of rows and columns in which these plots can be arranged.
+a vector \code{c(rows, columns)} with the number of rows and columns
+  in which these plots can be arranged.
 }
 \description{
-Given a number \code{n} of plots, find proper numbers of rows and columns in which these plots can be arranged.
+Given a number \code{n} of plots, find proper numbers of rows
+  and columns in which these plots can be arranged.
 }
