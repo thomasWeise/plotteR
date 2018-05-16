@@ -58,30 +58,32 @@
   n <- length(x);
   if(n <= 0L) { return(NULL); }
 
-  # sort the first and last two points
-  x <- sort.int(x, partial=c(1L, 2L, n-1L, n));
+  if(n >= 2L) {
+    # sort the first and last two points
+    x <- sort.int(x, partial=c(1L, 2L, n-1L, n));
 
-  # make start finite
-  r <- find.finite(x[1L], x[2L], f);
-  if(!(is.finite(r[2L]))) {
-    r <- find.finite(x[1L], x[n - 1L], f);
+    # make start finite
+    r <- find.finite(x[1L], x[2L], f);
     if(!(is.finite(r[2L]))) {
-      r <- find.finite(x[1L], x[n], f);
+      r <- find.finite(x[1L], x[n - 1L], f);
+      if(!(is.finite(r[2L]))) {
+        r <- find.finite(x[1L], x[n], f);
+      }
     }
-  }
-  a     <- r[1L];
-  x[1L] <- a;
+    a     <- r[1L];
+    x[1L] <- a;
 
-  # make end finite
-  r <- find.finite(x[n], x[n-1L], f);
-  if(!(is.finite(r[2L]))) {
-    r <- find.finite(x[n], x[2L], f);
+    # make end finite
+    r <- find.finite(x[n], x[n-1L], f);
     if(!(is.finite(r[2L]))) {
-      r <- find.finite(x[n], x[1L], f);
+      r <- find.finite(x[n], x[2L], f);
+      if(!(is.finite(r[2L]))) {
+        r <- find.finite(x[n], x[1L], f);
+      }
     }
+    b    <- r[1L];
+    x[n] <- b;
   }
-  b    <- r[1L];
-  x[n] <- b;
 
   # get a reasonable set of coordinates
   x <- .make.x.coords(x[ (x >= a) & (x <= b) ]);
