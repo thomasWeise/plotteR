@@ -51,7 +51,7 @@
 }
 
 # compute the function value of f for all values of y
-#' @importFrom utilizeR find.finite
+#' @importFrom utilizeR find.finite functionToString
 .compute.f <- function(x, f) {
 
   if(is.null(x)) { return(NULL); }
@@ -97,7 +97,12 @@
 
   # ok, we now have a reasonable set of points
   y <- f(x);
-  stopifnot(identical(n, length(y)));
+
+  if(!(identical(n, length(y)))) {
+    # the error check below would fail on an improperly vectorized function
+    stop(paste("function ", functionToString(f), " is not properly vectorized.",
+               sep="", collapse=""));
+  }
 
   if(all(is.finite(y))) {
     # ok, we could compute the function for all x-coordinates
