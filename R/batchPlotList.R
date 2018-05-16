@@ -83,10 +83,12 @@
     }
     b    <- r[1L];
     x[n] <- b;
+
+    x <- x[ (x >= a) & (x <= b) ];
   }
 
   # get a reasonable set of coordinates
-  x <- .make.x.coords(x[ (x >= a) & (x <= b) ]);
+  x <- .make.x.coords(x);
 
   # ok, continue
   if(is.null(x)) { return(NULL); }
