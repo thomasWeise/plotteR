@@ -41,7 +41,6 @@ test_that("Test batch-plotting of groups", {
   # plot the original data
   batchPlot.groups(examples,
                    names=c("f1", "f2", "f3"),
-                   ffun = function(l, x) l$f(x),
                    main="Original Data and Function Values for x",
                    plotXY=FALSE, plotXF=TRUE,
                    legend=list(x="bottom", horiz=TRUE));

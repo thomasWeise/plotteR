@@ -243,7 +243,15 @@ batchPlot.list <- function(data,
                   x.add=x.add, ...);
 }
 
-
+# check a function's arguments
+.check.f <- function(f) {
+  if(is.primitive(f)) {
+    a <- formals(args(f));
+  } else {
+    a <- formals(f);
+  }
+  stopifnot(identical(names(a), c("x")));
+}
 
 # the internal implementation which is also used by data groups
 #' @importFrom graphics plot points lines legend
@@ -271,11 +279,25 @@ batchPlot.list <- function(data,
                             y.max.upper=NA,
                             x.add=NULL,
                             ...) {
-
+# basic sanity tests
   stopifnot( ((plotXY && (widthXY > 0)) || (plotXF && (widthXF > 0))) &&
               (widthXY >= 0) && (widthXF >= 0) &&
               (!(is.null(colors))) &&
-              (identical(length(data), length(colors))));
+              identical(length(data), length(colors)));
+
+  .check.f(xfun); # check x function
+
+  # check y function
+  if(plotXY) {
+    if(is.null(yfun)) { plotXY <- FALSE; }
+    else { .check.f(yfun); }
+  } else { yfun <- NULL; }
+
+  # check f function
+  if(plotXF) {
+    if(is.null(ffun)) { plotXF <- FALSE; }
+    else { .check.f(ffun); }
+  } else { ffun <- NULL; }
 
   # extract the x-coordinates
   x.all <- lapply(X=data, FUN=xfun);

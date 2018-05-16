@@ -16,6 +16,7 @@ batchPlot.groups <- function(data,
                              ...) {
 
   stopifnot(identical(length(data), length(colors)));
+  .check.f(extract);
 
   # extract the data items from the groups, i.e., flatten the groups step 1
   data <- lapply(X=data, FUN=extract);
