@@ -467,6 +467,17 @@ batchPlot.list <- function(data,
       else { if(plotXY) { legend$lwd <- widthXY; } }
     }
 
+    # if not specified, set some nice defaults for the legend box
+    if(is.null(legend$bty) && is.null(legend$bg)  &&
+       is.null(legend$box.lty ) && is.null(legend$box.lwd) &&
+       is.null(legend$inset)) {
+      legend$bty     <- "o";
+      legend$bg      <- rgb(1, 1, 1, alpha=0.8);
+      legend$box.lty <- 0;
+      legend$box.lwd <- NA;
+      legend$inset   <- 0.001;
+    }
+
     # add a legend to the plot
     do.call(graphics::legend, legend);
   }
