@@ -417,7 +417,9 @@ batchPlot.list <- function(data,
   # create the dummy plot of exactly the right size
   plot(x=c(x.min, x.max),
        y=c(y.min, y.max),
-       type="n", xlab=xlab, ylab=ylab, ...);
+       type="n", xlab=xlab, ylab=ylab,
+       xpd=FALSE, # clip plot
+       ...);
 
   # actually paint the plot
   for(index in seq_along(data)) {
