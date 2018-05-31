@@ -253,6 +253,7 @@ batchPlot.list <- function(data,
 }
 
 # check a function's arguments
+#' @importFrom utilizeR function.args
 .check.f <- function(f) {
   stopifnot(identical(function.args(f), c("x")));
 }
