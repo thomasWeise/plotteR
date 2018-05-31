@@ -51,7 +51,7 @@
 }
 
 # compute the function value of f for all values of y
-#' @importFrom utilizeR find.finite functionToString
+#' @importFrom utilizeR find.finite function.toString
 .compute.f <- function(x, f) {
 
   if(is.null(x)) { return(NULL); }
@@ -100,7 +100,7 @@
 
   if(!(identical(n, length(y)))) {
     # the error check below would fail on an improperly vectorized function
-    stop(paste("function ", functionToString(f), " is not properly vectorized.",
+    stop(paste("function ", function.toString(f), " is not properly vectorized.",
                sep="", collapse=""));
   }
 
@@ -254,12 +254,7 @@ batchPlot.list <- function(data,
 
 # check a function's arguments
 .check.f <- function(f) {
-  if(is.primitive(f)) {
-    a <- formals(args(f));
-  } else {
-    a <- formals(f);
-  }
-  stopifnot(identical(names(a), c("x")));
+  stopifnot(identical(function.args(f), c("x")));
 }
 
 # the internal implementation which is also used by data groups
