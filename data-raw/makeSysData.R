@@ -5,16 +5,16 @@ colors.distinct.list <- list(
   .vec(c("red")),
   .vec(c("red", "blue")),
   .vec(c("red", "blue", "green")),
-  .vec(c("red", "blue", "green", "violet")),
-  .vec(c("red", "blue", "orange", "green", "violet")),
-  .vec(c("red", "blue", "orange", "green", "violet", "gold")),
-# Boynton's list of 9 colors
-# from http://stackoverflow.com/questions/470690
-  .vec(c("#0000FF", "#FF0000", "#00FF00", "#FFFF00", "#FF00FF",
-         "#FF8080", "#808080", "#800000", "#FF8000")),
-# the same colors, but now using two gray levels
-.vec(c("#0000FF", "#FF0000", "#00FF00", "#FFFF00", "#FF00FF",
-       "#FF8080", "#505000", "#800000", "#FF8000", "#90A0A0")),
+  .vec(c("red", "blue", "green", "brown")),
+  .vec(c("red", "blue", "green", "brown", "orange")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet", "darkviolet")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet",
+         "darkviolet", "#cccc00")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet",
+         "darkviolet", "#cccc00", "darkgray")),
 
 ## Kelly's 20 colors of maximum contrast
 ## from http://stackoverflow.com/questions/470690
