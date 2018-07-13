@@ -3,16 +3,17 @@
 #'   each pair of colors occurs once. This allows us to see if they are unique
 #'   and distinct.
 #' @param x the colors to plot
+#' @param ... the parameters passed to \code{pie} or \code{plot}
 #' @importFrom graphics pie plot polygon
 #' @export plot.colors
-plot.colors <- function(x) {
+plot.colors <- function(x, ...) {
   x <- unlist(x, recursive = TRUE);
   n <- length(x);
 
   if(n <= 3L) {
     # if there are only few colors, plot them in a pie chart
     pie(x=rep(1, n), labels=NA, col=x,
-        radius=1, border=FALSE, lty=0);
+        radius=1, border=FALSE, lty=0, ...);
   } else {
     # get the pairs of colors
     pairs <- unlist(lapply(X=1L:(n-1L),
@@ -26,7 +27,7 @@ plot.colors <- function(x) {
     n.y <- as.integer(ceiling(pairs.n / n.x) + 0.1);
 
     plot(x=c(0,n.x), y=c(0,n.y), type="n", xlab="", ylab="", ann=FALSE,
-         asp=TRUE, bty="n", xaxt="n", yaxt="n");
+         asp=TRUE, bty="n", xaxt="n", yaxt="n", ...);
 
     i <- 1L;
     for(b in seq_len(n.y)) {

@@ -4,10 +4,12 @@
 \alias{plot.colors}
 \title{Plot a Vector of Colors so that we can see if they are unique}
 \usage{
-\method{plot}{colors}(x)
+\method{plot}{colors}(x, ...)
 }
 \arguments{
 \item{x}{the colors to plot}
+
+\item{...}{the parameters passed to \code{pie} or \code{plot}}
 }
 \description{
 Take a vector of colors \code{x} and plot them in a way so that
