@@ -4,13 +4,13 @@
 \alias{plot.colors}
 \title{Plot a Vector of Colors so that we can see if they are unique}
 \usage{
-\method{plot}{colors}(colors)
+\method{plot}{colors}(x)
 }
 \arguments{
-\item{colors}{the colors to plot}
+\item{x}{the colors to plot}
 }
 \description{
-Take a vector of \code{colors} and plot them in a way so that
+Take a vector of colors \code{x} and plot them in a way so that
   each pair of colors occurs once. This allows us to see if they are unique
   and distinct.
 }

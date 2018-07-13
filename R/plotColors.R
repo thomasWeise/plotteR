@@ -1,17 +1,17 @@
 #' @title Plot a Vector of Colors so that we can see if they are unique
-#' @description Take a vector of \code{colors} and plot them in a way so that
+#' @description Take a vector of colors \code{x} and plot them in a way so that
 #'   each pair of colors occurs once. This allows us to see if they are unique
 #'   and distinct.
-#' @param colors the colors to plot
+#' @param x the colors to plot
 #' @importFrom graphics pie plot polygon
 #' @export plot.colors
-plot.colors <- function(colors) {
-  colors <- unlist(colors, recursive = TRUE);
-  n <- length(colors);
+plot.colors <- function(x) {
+  x <- unlist(x, recursive = TRUE);
+  n <- length(x);
 
   if(n <= 3L) {
     # if there are only few colors, plot them in a pie chart
-    pie(x=rep(1, n), labels=NA, col=colors,
+    pie(x=rep(1, n), labels=NA, col=x,
         radius=1, border=FALSE, lty=0);
   } else {
     # get the pairs of colors
@@ -40,11 +40,11 @@ plot.colors <- function(colors) {
 
           polygon(x=c(x1, x2, x2),
                   y=c(y1, y1, y2),
-                  col=colors[pair[1L]],
+                  col=x[pair[1L]],
                   lty=c(0,0));
           polygon(x=c(x1, x1, x2),
                   y=c(y1, y2, y2),
-                  col=colors[pair[2L]],
+                  col=x[pair[2L]],
                   lty=c(0,0));
           i <- i + 1L;
         }
