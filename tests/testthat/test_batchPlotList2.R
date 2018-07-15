@@ -1,20 +1,20 @@
 library("plotteR")
 library("grDevices")
-context("batchPlot.groups")
+context("batchPlot.list")
 
-test_that("Test batch-plotting of groups", {
-
+test_that("Test batch-plotting of lists 2", {
   graphics.off();
 
   # create destination file
   dest <- tempfile(pattern="plot-test", fileext=".pdf");
   expect_false(file.exists(dest));
 
-  pdf(dest, width=6, height=3);
+  pdf(file=dest, width=6, height=6);
 
-  source("../../examples/batchPlotGroups.R");
+  source("../../examples/batchPlotList2.R");
 
   dev.off();
+  graphics.off();
 
   expect_true(file.exists(dest));
   expect_gt(file.size(dest), 100L);

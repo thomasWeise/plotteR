@@ -1,8 +1,8 @@
 
 # the default modeler
 #' @importFrom fields Krig
-.model <- function(x, y, z)
-              suppressWarnings(Krig(as.matrix(cbind(x, y)), z))
+.model <- function(data)
+              suppressWarnings(Krig(as.matrix(cbind(data$x, data$y)), data$z))
 
 # the default predictor
 #' @importFrom fields predict.Krig
@@ -16,26 +16,29 @@
 #' @param data the data list, a list of lists where each element
 #' is a list with elements \code{x}, \code{y}, \code{z}, which must be vectors.
 #' @param plotPoints should the raw points be plotted?
-#' @param model a \code{function(x, y, z)} for modeling the data, or
-#'   \code{NULL}, by default a Kriging-based modeling if no modeling is
-#'   necessary
+#' @param model a \code{function(data)} receiving one item from the \code{data}
+#'   list, which i sued for modeling the data, or \code{NULL}, by default a
+#'   Kriging-based modeling if no modeling is necessary
 #' @param predict a \code{function(model, x, y)} for predicting \code{z}
 #'   coordinates based on models, or \code{NULL} if no modeling is necessary; by
 #'   default a Kriging-based predictor
 #' @param modelSteps the number of steps for modeling along each axis
 #' @param legend the legend
-#' @inheritDotParams scatterplot3d::scatterplot3d -x -y
+#' @param legendWidth the fraction of the plot to be allocated for the legend
+#' @inheritDotParams scatterplot3d::scatterplot3d -x -y -z -type
 #' @export batchPlot.3d
 #' @importFrom scatterplot3d scatterplot3d
 #' @importFrom graphics layout legend par plot.new
 #' @include distinctColors.R
 #' @include distinctSymbols.R
+#' @example examples/batchPlot3d.R
 batchPlot.3d <- function(data,
                     plotPoints=TRUE,
                     model=.model,
                     predict=.predict,
-                    modelSteps=25,
+                    modelSteps=20,
                     legend=NULL,
+                    legendWidth=0.3,
                     ...) {
 
   # load the parameters
@@ -53,9 +56,10 @@ batchPlot.3d <- function(data,
 
   if(!(is.null(legend))) {
     stopifnot(length(legend) == length(data));
+
     # divide the pane horizontally into two, so we have space for the legend
     layout(matrix(c(1L, 2L), nrow=1L, ncol=2L),
-           widths=c(0.7, 0.3));
+           widths=c(1 - legendWidth, legendWidth));
 
     # set margins: no margin on the right side
     params$mar <- c(5.1, 3.1, 4.1, 0);
@@ -89,6 +93,7 @@ batchPlot.3d <- function(data,
     params$x <- x;
     params$y <- y;
     params$z <- z;
+    params$type <- "p";
   } else {
     # create empty plot
     params$type <- "n";
@@ -123,7 +128,7 @@ batchPlot.3d <- function(data,
       d <- data[[i]];
 
       # model it
-      m <- model(d$x, d$y, d$z);
+      m <- model(d);
 
       # now we interpolate the model and paint it as lines, first along x
       for(j in length(x):1L) {

@@ -5,7 +5,7 @@
 \title{Plot 3D Data}
 \usage{
 batchPlot.3d(data, plotPoints = TRUE, model = .model, predict = .predict,
-  modelSteps = 25, legend = NULL, ...)
+  modelSteps = 20, legend = NULL, legendWidth = 0.3, ...)
 }
 \arguments{
 \item{data}{the data list, a list of lists where each element
@@ -13,9 +13,9 @@ is a list with elements \code{x}, \code{y}, \code{z}, which must be vectors.}
 
 \item{plotPoints}{should the raw points be plotted?}
 
-\item{model}{a \code{function(x, y, z)} for modeling the data, or
-\code{NULL}, by default a Kriging-based modeling if no modeling is
-necessary}
+\item{model}{a \code{function(data)} receiving one item from the \code{data}
+list, which i sued for modeling the data, or \code{NULL}, by default a
+Kriging-based modeling if no modeling is necessary}
 
 \item{predict}{a \code{function(model, x, y)} for predicting \code{z}
 coordinates based on models, or \code{NULL} if no modeling is necessary; by
@@ -25,9 +25,10 @@ default a Kriging-based predictor}
 
 \item{legend}{the legend}
 
+\item{legendWidth}{the fraction of the plot to be allocated for the legend}
+
 \item{...}{Arguments passed on to \code{scatterplot3d::scatterplot3d}
 \describe{
-  \item{z}{the z coordinates of points in the plot, optional if \code{x} is an appropriate structure.}
   \item{color}{colors of points in the plot, optional if \code{x} is an appropriate structure.
    Will be ignored if \code{highlight.3d = TRUE}.}
   \item{pch}{plotting "character", i.e. symbol to use.}
@@ -59,8 +60,6 @@ default a Kriging-based predictor}
   \item{lab}{a numerical vector of the form c(x, y, len).  The values of
    x and y give the (approximate) number of tickmarks on the x and y axes.}
   \item{lab.z}{the same as \code{lab}, but for z axis.}
-  \item{type}{character indicating the type of plot: "p" for points, "l"
-   for lines, "h" for vertical lines to x-y-plane, etc.}
   \item{highlight.3d}{points will be drawn in different colors related to y coordinates
    (only if \code{type = "p"} or \code{type = "h"}, else \code{color} will be used).\cr
    On some devices not all colors can be displayed. In this case try the
@@ -93,4 +92,37 @@ default a Kriging-based predictor}
 The list \code{x} contains, in turn,
 lists which have the elements \code{x}, \code{y}, \code{z},
 each of which represent one dataset to be plotted.
+}
+\examples{
+library(plotteR)
+
+# set a random seed for replicability
+set.seed(1000L);
+
+# generate the first example dataset
+f1 <- function(x, y) (x*x - y*y);
+x1 <- runif(n=400, min=-2, max=2);
+y1 <- runif(n=400, min=-2, max=2);
+z1 <- f1(x1, y1);
+d1 <- list(x=x1, y=y1, z=z1);
+
+# generate the second example dataset
+f2 <- function(x, y) 0.8*x + 0.25*y - 7;
+x2 <- runif(n=400, min=-2, max=2);
+y2 <- runif(n=400, min=-2, max=2);
+# here we even add a bit of randomness into the data
+z2 <- rnorm(n=400, mean=f2(x2, y2), sd=0.3);
+d2 <- list(x=x2, y=y2, z=z2);
+
+# plot the data together with the interpolated surfaces
+batchPlot.3d(list(d1, d2), plotPoints=TRUE, legend=c("f1", "f2"), legendWidth=0.1);
+
+readline("Press return to continue");
+
+# now we just plot the actual surfaces for comparison.
+d1$f <- f1;
+d2$f <- f2;
+batchPlot.3d(list(d1, d2), plotPoints=FALSE, legend=c("f1", "f2"),
+             model=function(d) d$f,
+             predict=function(m, x, y) m(x, y), legendWidth=0.1);
 }

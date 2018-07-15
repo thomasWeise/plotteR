@@ -13,7 +13,7 @@
 #' @include sampleDistinct.R
 #' @importFrom grDevices rgb
 #' @importFrom stats runif
-#' @example examples/printColors.R
+#' @example examples/plotColors.R
 colors.distinct <- function(n) {
   if(n <= 0L) { return(c()); }
 

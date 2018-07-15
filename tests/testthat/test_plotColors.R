@@ -1,8 +1,8 @@
 library("plotteR")
 library("grDevices")
-context("batchPlot.groups")
+context("plot.colors")
 
-test_that("Test batch-plotting of groups", {
+test_that("Test plotting the colors", {
 
   graphics.off();
 
@@ -10,11 +10,15 @@ test_that("Test batch-plotting of groups", {
   dest <- tempfile(pattern="plot-test", fileext=".pdf");
   expect_false(file.exists(dest));
 
-  pdf(dest, width=6, height=3);
+  pdf(file=dest, width=6, height=6);
 
-  source("../../examples/batchPlotGroups.R");
+  x.range <- 4L;
+  y.range <- 4L;
+
+  source("../../examples/plotColors.R", local=environment());
 
   dev.off();
+  graphics.off();
 
   expect_true(file.exists(dest));
   expect_gt(file.size(dest), 100L);

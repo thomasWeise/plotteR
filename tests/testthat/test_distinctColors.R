@@ -1,5 +1,5 @@
 library("plotteR")
-context("distinctColors")
+context("colors.distinct")
 
 test_that("Test colors.distinct 1 to 50", {
   for(i in 1:50) {

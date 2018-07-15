@@ -164,6 +164,7 @@
 #' @param ... the parameters passed to \code{pie} or \code{plot}
 #' @importFrom graphics pie plot rect
 #' @export plot.colors
+#' @example examples/plotColors.R
 plot.colors <- function(x, ...) {
   x <- unlist(x, recursive = TRUE);
   n <- length(x);
