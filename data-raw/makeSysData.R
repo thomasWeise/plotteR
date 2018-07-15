@@ -9,12 +9,12 @@ colors.distinct.list <- list(
   .vec(c("red", "blue", "green", "brown", "orange")),
   .vec(c("red", "blue", "green", "brown", "orange", "#008833")),
   .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff")),
-  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet")),
-  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet", "darkviolet")),
-  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet",
-         "darkviolet", "#cccc00")),
-  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "violet",
-         "darkviolet", "#cccc00", "darkgray")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "#cf00ff")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "#cf00ff", "#770066")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "#cf00ff", "#770066",
+         "#cccc00")),
+  .vec(c("red", "blue", "green", "brown", "orange", "#008833", "#7788ff", "#cf00ff", "#770066",
+         "#cccc00", "darkgray")),
 
 ## Kelly's 20 colors of maximum contrast
 ## from http://stackoverflow.com/questions/470690
