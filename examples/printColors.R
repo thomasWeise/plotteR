@@ -3,15 +3,19 @@ library(plotteR)
 # set the random seed for reproducibility
 set.seed(129855L);
 
-# choose the number of rows/columns for the diagram
-root = 5L;
+x.range <- 4L;
+y.range <- 5L;
 
 # set the number of diagrams appropriately
-old.par <- par(mfrow=c(root, root), mai=c(0.02, 0.02, 0.02, 0.02));
+old.par <- par(mfrow=c(y.range, x.range), mai=c(0.02, 0.02, 0.02, 0.02));
 
 # paint the diagrams
-for(n in seq_len(root*root)) {
-  plot.colors(colors.distinct(n));
+n <- 1L;
+for(y in 1L:y.range) {
+  for(x in 1L:x.range) {
+    plot.colors(colors.distinct(n));
+    n <- n + 1L;
+  }
 }
 
 # reset the parameters

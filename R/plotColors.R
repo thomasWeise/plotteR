@@ -1,14 +1,3 @@
-
-# make a vector where all possible combinations of (i, j) with i, j in 1..n
-# occur
-.make.pairs <- function(n) {
-  return(unlist(lapply(X=1L:(n-1L),
-                       FUN=function(i) {
-                            lapply(X=(i+1L):n,
-                                   FUN=function(j, i) c(i, j), i)
-                       }), recursive = TRUE))
-}
-
 # reduce all sub-sequence of type (i, i) to i
 .reduce.pairs.AA <- function(pairs, n) {
   return(pairs[vapply(X=1L:n,
@@ -143,6 +132,53 @@
   return(pairs);
 }
 
+# make a vector where all possible combinations of (i, j) with i, j in 1..n
+# occur
+.make.pairs <- function(n) {
+  # create list of pairs
+  pairList <- (unlist(lapply(X=1L:(n-1L),
+                       FUN=function(i) {
+                         lapply(X=(i+1L):n,
+                                FUN=function(j, i) c(i, j), i)
+                       }), recursive = FALSE))
+
+  # compute standard reduced list
+  pairs.best <- .reduce.pairs(unlist(pairList, recursive=TRUE));
+  pl <- length(pairs.best);
+
+  # sample possible permutations of pairList, reduce them,
+  # and check if they lead to fewer bars
+  for(i in 1L:(n*10L)) {
+    pairs <- unlist(pairList[sample(x=length(pairList),
+                                    size=length(pairList),
+                                    replace=FALSE)], recursive=TRUE);
+    pairs <- .reduce.pairs(pairs);
+    nl <- length(pairs);
+    if(nl < pl) {
+      pairs.best <- pairs;
+      pl <- nl;
+    }
+  }
+
+  # translate the list in such a way that the first occuring colors
+  # are also the first colors in the palette
+  translate <- vector(mode="integer", length=pl);
+  result    <- vector(mode="integer", length=pl);
+  index     <- 0L;
+  for(i in 1L:pl) {
+    q <- pairs.best[i];
+    t <- translate[q];
+    if(t == 0L) {
+      index <- index + 1L;
+      t <- index;
+      translate[q] <- t;
+    }
+    result[i] <- t;
+  }
+
+  return(result);
+}
+
 #' @title Plot a Vector of Colors so that we can see if they are unique
 #' @description Take a vector of colors \code{x} and plot them in a way so that
 #'   each pair of colors occurs once. This allows us to see if they are unique
@@ -162,7 +198,6 @@ plot.colors <- function(x, ...) {
   } else {
     # get the pairs of colors
     pairs <- .make.pairs(n);
-    pairs <- .reduce.pairs(pairs);
     n <- length(pairs);
 
     plot(x=c(0,n), y=c(0,1), type="n", xlab="", ylab="", ann=FALSE,
