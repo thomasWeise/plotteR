@@ -25,8 +25,8 @@ library(plotteR)
 # set the random seed for reproducibility
 set.seed(129855L);
 
-x.range <- 4L;
-y.range <- 5L;
+if(!exists("x.range")) x.range <- 4L;
+if(!exists("y.range")) y.range <- 5L;
 
 # set the number of diagrams appropriately
 old.par <- par(mfrow=c(y.range, x.range), mai=c(0.02, 0.02, 0.02, 0.02));

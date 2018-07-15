@@ -1,3 +1,7 @@
+# the internal hash
+.pairs.cache <- new.env();
+
+
 # reduce all sub-sequence of type (i, i) to i
 .reduce.pairs.AA <- function(pairs, n) {
   return(pairs[vapply(X=1L:n,
@@ -8,76 +12,21 @@
                       FUN.VALUE = FALSE)]);
 }
 
-# reduce one tuple of type ABA to A if there is a sequence of type AB or BA
-# somewhere else
-.reduce.pairs.ABA <- function(pairs, n) {
-  for(i in 2L:(n-1L)) {
-    A <- pairs[i - 1L];
-    B <- pairs[i];
-    C <- pairs[i + 1L];
-
-    if(A == C) {
-      for(j in 1L:(n-1L)) {
-        if(j != i)  {
-          if((pairs[j] == B) && (pairs[j + 1L] == C)) {
-            pairs <- pairs[-i];
-            return(pairs[-i]);
-          }
-        }
+# reduce all pairs of form ABACA to ABCA
+.reduce.pairs.ABACA <- function(pairs, n) {
+  if(n > 4) {
+    for(i in 1L:(n-4L)) {
+      A <- pairs[i];
+      if((A == pairs[i + 2L]) &&
+         (A == pairs[i + 4L])) {
+        return(pairs[-(i + 2L)]);
       }
-
-      if(A == C) {
-        for(j in 2L:n) {
-          if(j != i)  {
-            if((pairs[j] == B) && (pairs[j - 1L] == A)) {
-              pairs <- pairs[-i];
-              return(pairs[-i]);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return(pairs);
-}
-
-# reduce one tuple of type ABC to B if there is a sequence of type AB and BC
-# somewhere else
-.reduce.pairs.ABC <- function(pairs, n) {
-  for(i in 2L:(n-1L)) {
-    A <- pairs[i - 1L];
-    B <- pairs[i];
-    C <- pairs[i + 1L];
-
-    foundAB <- FALSE;
-    foundBC <- FALSE;
-    for(j in 2L:n) {
-      if(j != i) {
-        if( ((B == pairs[j]) && (A == pairs[j - 1L])) ) {
-          foundAB <- TRUE;
-          break;
-        }
-      }
-    }
-
-    for(j in 1L:(n-1L)) {
-      if(j != i) {
-        if( ((B == pairs[j]) && (C == pairs[j + 1L])) ) {
-          foundBC <- TRUE;
-          break;
-        }
-      }
-    }
-
-    if(foundAB && foundBC) {
-      return(pairs[-j]);
     }
   }
   return(pairs);
 }
 
-# reduce the end AB to A if AB occurs elsewhere
+# reduce AB at the end to A if AB occurs elsewhere
 .reduce.pairs.end <- function(pairs, n) {
   A <- pairs[n-1L];
   B <- pairs[n];
@@ -92,7 +41,7 @@
   return(pairs);
 }
 
-# reduce the start AB to B if AB occurs elsewhere
+# reduce AB at the start to B if AB occurs elsewhere
 .reduce.pairs.start <- function(pairs, n) {
   A <- pairs[1L];
   B <- pairs[2L];
@@ -101,7 +50,7 @@
     B2 <- pairs[i+1L];
     if(((A2 == A) && (B2 == B)) ||
        ((A2 == B) && (B2 == A))) {
-      return(pairs[-n]);
+      return(pairs[-1L]);
     }
   }
   return(pairs);
@@ -115,19 +64,16 @@
     pairs <- .reduce.pairs.AA(pairs, n);
     n <- length(pairs);
     if(n <= 2L) { break; }
-    pairs <- .reduce.pairs.ABA(pairs, n);
-    n <- length(pairs);
-    if(n <= 2L) { break; }
-    pairs <- .reduce.pairs.ABC(pairs, n);
-    n <- length(pairs);
-    if(n <= 2L) { break; }
     pairs <- .reduce.pairs.start(pairs, n);
     n <- length(pairs);
     if(n <= 2L) { break; }
     pairs <- .reduce.pairs.end(pairs, n);
     n <- length(pairs);
     if(n <= 2L) { break; }
-    if(n.old >= n) { break; }
+    pairs <- .reduce.pairs.ABACA(pairs, n);
+    n <- length(pairs);
+    if(n <= 2L) { break; }
+    if(n.old <= n) { break; }
   }
   return(pairs);
 }
@@ -135,6 +81,19 @@
 # make a vector where all possible combinations of (i, j) with i, j in 1..n
 # occur
 .make.pairs <- function(n) {
+  # make n an integer and check trivial case
+  n <- as.integer(n);
+  if(n <= 3L) {
+    return(1L:n);
+  }
+
+  # see if the table is in the cache
+  name <- as.character(n);
+  table <- get0(x=name, envir=.pairs.cache, inherits=FALSE, ifnotfound=NULL);
+  if(!is.null(table)) {
+    return(table);
+  }
+
   # create list of pairs
   pairList <- (unlist(lapply(X=1L:(n-1L),
                        FUN=function(i) {
@@ -146,12 +105,27 @@
   pairs.best <- .reduce.pairs(unlist(pairList, recursive=TRUE));
   pl <- length(pairs.best);
 
+  # check if we can simply extend the next smaller array
+  if(n > 4L) {
+    pairs <- .make.pairs(n - 1L);
+    add <- 1L:(n - 1L);
+    add <- add[-(pairs[length(pairs)])];
+    pairs <- c(pairs, rbind(rep(n, n-2L), add));
+    pairs <- .reduce.pairs(pairs);
+    nl <- length(pairs);
+    if(nl < pl) {
+      pairs.best <- pairs;
+      pl <- nl;
+    }
+  }
+
   # sample possible permutations of pairList, reduce them,
   # and check if they lead to fewer bars
   for(i in 1L:(n*10L)) {
-    pairs <- unlist(pairList[sample(x=length(pairList),
+    pairs <- as.integer(unlist(
+                    pairList[sample(x=length(pairList),
                                     size=length(pairList),
-                                    replace=FALSE)], recursive=TRUE);
+                                    replace=FALSE)], recursive=TRUE));
     pairs <- .reduce.pairs(pairs);
     nl <- length(pairs);
     if(nl < pl) {
@@ -175,6 +149,9 @@
     }
     result[i] <- t;
   }
+
+  result <- force(result);
+  assign(x=name, envir=.pairs.cache, value=result);
 
   return(result);
 }
