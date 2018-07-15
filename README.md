@@ -113,6 +113,7 @@ If a function takes on non-finite values within the range of the axis, we automa
 We can also have groups of functions which share the same color.
 
 ![Example image for `batchPlot.groups`](examples/batchPlotGroups.png)
+
 We can also plot groups of similar data easily.
 
     library(plotteR)
@@ -196,7 +197,7 @@ The latter is, by default, based on kriging, but you can replace the modeling me
 Below you can find the two resulting plots.
 
 ![The first 3-d plot, with the raw points and interpolated surfaces.](examples/batchPlot3d_1.png)
-![The second 3-d plot, with the actual surfaces and no points.](examples/batchPlot3d_1.png)
+![The second 3-d plot, with the actual surfaces and no points.](examples/batchPlot3d_2.png)
 
 ### 2.4. `colors.distinct` and `plot.colors`
 
