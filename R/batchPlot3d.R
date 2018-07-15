@@ -39,7 +39,7 @@ batchPlot.3d <- function(data,
                     ...) {
 
   # load the parameters
-  params <- as.list(...);
+  params <- list(...);
 
   # store the current graphical setup
   old.par <- par();
@@ -63,7 +63,7 @@ batchPlot.3d <- function(data,
 
   # setup the colors
   color <- params$color;
-  if(is.null(color)) { color <- color.distinct(length(data)); }
+  if(is.null(color)) { color <- colors.distinct(length(data)); }
 
   # setup the symbols
   symbols <- params$pch;
@@ -97,6 +97,10 @@ batchPlot.3d <- function(data,
     params$z <- range(z);
   }
 
+  if(is.null(params$xlab)) { params$xlab <- ""; }
+  if(is.null(params$ylab)) { params$ylab <- ""; }
+  if(is.null(params$zlab)) { params$zlab <- ""; }
+
   x <- NULL; y <- NULL; z <- NULL;
 
   # plot
@@ -124,15 +128,15 @@ batchPlot.3d <- function(data,
       # now we interpolate the model and paint it as lines, first along x
       for(j in length(x):1L) {
         xx <- rep(x[j], length(y));
-        s3d$points3d(xx, y, predict(model, xx, y),
+        s3d$points3d(xx, y, predict(m, xx, y),
                      type="l", col=color[i])
       }
 
       # then along y
       for(j in length(y):1L) {
         yy <- rep(y[j], length(x));
-        s3d$points3d(xx, yy, predict.Krig(model, x, yy), type="l",
-                     col=color[i])
+        s3d$points3d(x, yy, predict(m, x, yy),
+                     type="l", col=color[i])
       }
     }
   }
@@ -150,16 +154,16 @@ batchPlot.3d <- function(data,
     lparams <- list();
     lparams$x <- "right";
     lparams$legend <- legend;
-    lparams$color <- color;
+    lparams$col <- color;
     lparams$text.col <- color;
-    params$bty <- "n";
+    lparams$bty <- "n";
 
     if(plotPoints) { # put symbols only if points are shown
-      lparams$pch <- params$symbols;
+      lparams$pch <- symbols;
     }
 
     # paint the legend
-    do.call(legend, lparams);
+    do.call(graphics::legend, lparams);
   }
 
 
