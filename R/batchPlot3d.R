@@ -25,12 +25,12 @@
 #' @param modelSteps the number of steps for modeling along each axis
 #' @param legend the legend
 #' @inheritDotParams scatterplot3d::scatterplot3d -x -y
-#' @export batchplot.3d
+#' @export batchPlot.3d
 #' @importFrom scatterplot3d scatterplot3d
 #' @importFrom graphics layout legend par plot.new
 #' @include distinctColors.R
 #' @include distinctSymbols.R
-batchplot.3d <- function(data,
+batchPlot.3d <- function(data,
                     plotPoints=TRUE,
                     model=.model,
                     predict=.predict,
