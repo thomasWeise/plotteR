@@ -79,6 +79,39 @@ batchPlot.3d <- function(data,
 
   stopifnot(length(x) == length(y), length(y) == length(z));
 
+  # setup model axes and compute the modes
+  models  <- NULL;
+  z.range <- NULL;
+  if(!(is.null(model) || is.null(predict))) {
+    # compute the x range
+    model.x <- params$xlim;
+    if(is.null(model.x)) { model.x <- range(x); }
+    model.x <- seq.default(from=min(model.x), to=max(model.x), length.out=modelSteps);
+
+    # compute the y range
+    model.y <- params$ylim;
+    if(is.null(model.y)) { model.y <- range(y); }
+    model.y <- seq.default(from=min(model.y), to=max(model.y), length.out=modelSteps);
+
+    # create all the models
+    models <- lapply(X=data, FUN=model);
+
+    # use the models to compute the axis ranges
+    for(m in models) {
+      # now we interpolate the model and paint it as lines, first along x
+      for(j in length(model.x):1L) {
+        xx <- rep(model.x[j], length(model.y));
+        z.range <- range(z.range, predict(m, xx, model.y));
+      }
+
+      # then along y
+      for(j in length(model.y):1L) {
+        yy <- rep(model.y[j], length(model.x));
+        z.range <- range(z.range, predict(m, model.x, yy));
+      }
+    }
+  }
+
   if(plotPoints) {
     # setup colors
     params$color <- unlist(lapply(X=seq_along(data),
@@ -93,13 +126,31 @@ batchPlot.3d <- function(data,
     params$x <- x;
     params$y <- y;
     params$z <- z;
+
+    if(!(is.null(z.range))) {
+      # we can only get here if we plot both models and points
+      if(is.null(params$zlim)) {
+        # if the user did not specify axis limits
+        z.r.2 <- range(z); # then we compute the range of the z data
+        if((z.r.2[1L] > z.range[1L]) || (z.r.2[2L] < z.range[2L])) {
+          # if the models have a range which at some point extends to outside
+          # the data range, we set the zlimit
+          params$zlim <- range(z.range, z.r.2);
+        }
+      }
+    }
+
     params$type <- "p";
   } else {
     # create empty plot
     params$type <- "n";
-    params$x <- range(x);
-    params$y <- range(y);
-    params$z <- range(z);
+    params$x <- range(model.x);
+    params$y <- range(model.y);
+
+    if(is.null(z.range)) {
+      z.range <- range(z);
+    }
+    params$z <- z.range;
   }
 
   if(is.null(params$xlab)) { params$xlab <- ""; }
@@ -111,36 +162,24 @@ batchPlot.3d <- function(data,
   # plot
   s3d <- do.call(scatterplot3d, params);
 
-  if(!(is.null(model) || is.null(predict))) {
-    # compute the x range
-    x <- params$xlim;
-    if(is.null(x)) { x <- range(params$x); }
-    x <- seq.default(from=min(x), to=max(x), length.out=modelSteps);
-
-    # compute the y range
-    y <- params$ylim;
-    if(is.null(y)) { y <- range(params$y); }
-    y <- seq.default(from=min(y), to=max(y), length.out=modelSteps);
+  if(!(is.null(models))) {
+    # plot the actual models
 
     # iterate over the lines
-    for(i in seq_along(data)) {
-      # select the ith dataset
-      d <- data[[i]];
-
-      # model it
-      m <- model(d);
+    for(i in seq_along(models)) {
+      m <- models[[i]];
 
       # now we interpolate the model and paint it as lines, first along x
-      for(j in length(x):1L) {
-        xx <- rep(x[j], length(y));
-        s3d$points3d(xx, y, predict(m, xx, y),
+      for(j in length(model.x):1L) {
+        xx <- rep(model.x[j], length(model.y));
+        s3d$points3d(xx, model.y, predict(m, xx, model.y),
                      type="l", col=color[i])
       }
 
       # then along y
-      for(j in length(y):1L) {
-        yy <- rep(y[j], length(x));
-        s3d$points3d(x, yy, predict(m, x, yy),
+      for(j in length(model.y):1L) {
+        yy <- rep(model.y[j], length(model.x));
+        s3d$points3d(model.x, yy, predict(m, model.x, yy),
                      type="l", col=color[i])
       }
     }
