@@ -25,16 +25,17 @@ colors.distinct.list <- list(
 
 # 20 distinguishable colors from
 # http://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
-# which I like better than Kelly's
+# which I like better than Kelly's, but with the pale yellow replaced because it
+# is virtually invisible in plots
   .vec(c("#E6194B", "#3CB44B", "#FFE119", "#0082C8", "#F58231",
          "#911EB4", "#46F0F0", "#F032E6", "#D2F53C", "#FABEBE",
-         "#008080", "#E6BEFF", "#AA6E28", "#FFFAC8", "#800000",
+         "#008080", "#E6BEFF", "#AA6E28", "#cFcA08", "#800000",
          "#AAFFC3", "#808000", "#FFD8B1", "#000080", "#808080")),
 
 # the same colors, extented to 21, with two pseudo-gray levels
 .vec(c("#E6194B", "#3CB44B", "#FFE119", "#0082C8", "#F58231",
        "#911EB4", "#46F0F0", "#F032E6", "#D2F53C", "#FABEBE",
-       "#008080", "#E6BEFF", "#AA6E28", "#FFFAC8", "#800000",
+       "#008080", "#E6BEFF", "#AA6E28", "#cFcA08", "#800000",
        "#AAFFC3", "#808000", "#FFD8B1", "#000080", "#505000",
        "#90A0A0"))
 );
