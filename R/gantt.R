@@ -62,7 +62,7 @@ plot.gantt <- function(data, xlab="Time", ylab="Machine",
     # iterate over jobs
     for(task in data[[i]]) {
       # get job color
-      col <- colors[which.min(task$job == jobs)];
+      col <- colors[which(jobs == task$job)];
       # paint job
       rect(task$start, y.min, task$end, y.max, col=col, border=NA);
       # add label
