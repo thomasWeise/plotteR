@@ -30,6 +30,7 @@ Collate:
     'batchPlotList.R'
     'batchPlotGroups.R'
     'distinctLineTypes.R'
+    'gantt.R'
     'goldenRatio.R'
     'plotColors.R'
     'plotSize.R'
