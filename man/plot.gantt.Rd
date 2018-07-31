@@ -19,6 +19,11 @@
 \item{prefix.machine}{the machine name prefix}
 
 \item{color.fun}{a function returning a color for a job}
+
+\item{...}{Arguments passed on to \code{graphics::plot}
+\describe{
+  \item{}{}
+}}
 }
 \description{
 Plot a Gantt chart based on a list \code{x} of lists of data. The

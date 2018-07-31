@@ -13,6 +13,7 @@
 #' @param prefix.job the job name prefix
 #' @param prefix.machine the machine name prefix
 #' @param color.fun a function returning a color for a job
+#' @inheritDotParams graphics::plot -x -y
 #' @export plot.gantt
 #' @include distinctColors.R
 #' @importFrom graphics plot axis rect text
