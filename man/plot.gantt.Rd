@@ -4,14 +4,13 @@
 \alias{plot.gantt}
 \title{Plot a Gantt Chart}
 \usage{
-\method{plot}{gantt}(data, xlab = "Time", ylab = "Machine",
-  prefix.job = "J", prefix.machine = "M", color.fun = colors.distinct,
-  ...)
+\method{plot}{gantt}(x, xlab = "Time", ylab = "Machine", prefix.job = "J",
+  prefix.machine = "M", color.fun = colors.distinct, ...)
 }
 \arguments{
-\item{data}{the data list, a list of lists}
+\item{x}{the x list, a list of lists}
 
-\item{xlab}{the \code{x} label}
+\item{xlab}{the \code{xaxis} label}
 
 \item{ylab}{the \code{y} label}
 
@@ -22,7 +21,7 @@
 \item{color.fun}{a function returning a color for a job}
 }
 \description{
-Plot a Gantt chart based on a list of lists of \code{data}. The
+Plot a Gantt chart based on a list \code{x} of lists of data. The
   list contains one list for each machine. The first machine at index
   \code{1} will be refered to as \code{M0}, the second machine as \code{M1}
   and so on. Each machine list, in turn, is a list of lists. Each element has

@@ -35,3 +35,4 @@ Collate:
     'plotColors.R'
     'plotSize.R'
     'plotsArrange.R'
+    'rgb2gray.R'
