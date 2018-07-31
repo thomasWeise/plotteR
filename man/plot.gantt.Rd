@@ -10,7 +10,7 @@
 \arguments{
 \item{x}{the x list, a list of lists}
 
-\item{xlab}{the \code{xaxis} label}
+\item{xlab}{the \code{x} label}
 
 \item{ylab}{the \code{y} label}
 

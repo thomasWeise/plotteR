@@ -8,7 +8,7 @@
 #'   the form \code{list(job=, start=, end=)}, with elements denoting the job
 #'   name, start, and end time, respectively.
 #' @param x the x list, a list of lists
-#' @param xlab the \code{xaxis} label
+#' @param xlab the \code{x} label
 #' @param ylab the \code{y} label
 #' @param prefix.job the job name prefix
 #' @param prefix.machine the machine name prefix
@@ -34,7 +34,7 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
   machines <- length(x);
 
   # paint plot area, but without y axis
-  plot(xaxis=range(xaxis), y=c(.gantt.min, machines- 1 + .gantt.max),
+  plot(x=range(xaxis), y=c(.gantt.min, machines- 1 + .gantt.max),
        type="n", yaxt="n", xlab=xlab, ylab=ylab,
        ...);
 
@@ -77,7 +77,7 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
       }
 
       # add label
-      text(xaxis=(0.5*(task$end + task$start)),
+      text(x=(0.5*(task$end + task$start)),
            y=(i-1), adj=c(0.5, 0.5),
            cex=1.1,
            labels=paste(prefix.job, task$job, sep="", collapse=""), col=text.col);
