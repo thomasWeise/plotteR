@@ -10,7 +10,7 @@ batchPlot.list(data, xfun = function(x) x$x, yfun = function(x) x$y,
   xlab = "", ylab = "", legend = NULL, x.min.lower = NA,
   x.min.upper = NA, x.max.lower = NA, x.max.upper = NA,
   y.min.lower = NA, y.min.upper = NA, y.max.lower = NA,
-  y.max.upper = NA, x.add = NULL, ...)
+  y.max.upper = NA, x.add = NULL, XYType = "p", XFType = "l", ...)
 }
 \arguments{
 \item{data}{the data object, could be a list of lists or anything}
@@ -79,6 +79,12 @@ coordinate maximum}
 \item{x.add}{some additional \code{x} coordinates at which the function
 should be evaluated, or \code{TRUE} if the \code{x} coordinate minimum and
 maximum over all data sets should be added as evaluation points}
+
+\item{XYType}{the type in which the XY data should be plotted, by default
+\code{"p"}, i.e., as points}
+
+\item{XFType}{the type in which the XF data should be plotted, by default
+\code{"l"}, i.e., as lines}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{

@@ -206,6 +206,10 @@
 #' @param x.add some additional \code{x} coordinates at which the function
 #'   should be evaluated, or \code{TRUE} if the \code{x} coordinate minimum and
 #'   maximum over all data sets should be added as evaluation points
+#' @param XYType the type in which the XY data should be plotted, by default
+#'   \code{"p"}, i.e., as points
+#' @param XFType the type in which the XF data should be plotted, by default
+#'   \code{"l"}, i.e., as lines
 #' @inheritDotParams graphics::plot -x -y
 #' @include distinctColors.R
 #' @export batchPlot.list
@@ -234,6 +238,8 @@ batchPlot.list <- function(data,
                            y.max.lower=NA,
                            y.max.upper=NA,
                            x.add=NULL,
+                           XYType="p",
+                           XFType="l",
                            ...) {
   .batchPlot.list(data=data, xfun=xfun, yfun=yfun,
                   ffun=ffun, plotXY=plotXY, widthXY=widthXY,
@@ -249,7 +255,10 @@ batchPlot.list <- function(data,
                   y.min.upper=y.min.upper,
                   y.max.lower=y.max.lower,
                   y.max.upper=y.max.upper,
-                  x.add=x.add, ...);
+                  x.add=x.add,
+                  XYType=XYType,
+                  XFType=XFType,
+                  ...);
 }
 
 # check a function's arguments
@@ -283,6 +292,8 @@ batchPlot.list <- function(data,
                             y.max.lower=NA,
                             y.max.upper=NA,
                             x.add=NULL,
+                            XYType="p",
+                            XFType="l",
                             ...) {
 # basic sanity tests
   stopifnot( ((plotXY && (widthXY > 0)) || (plotXF && (widthXF > 0))) &&
@@ -426,14 +437,14 @@ batchPlot.list <- function(data,
     x <- d$x;
     y <- d$y;
     if(plotXY && (widthXY > 0) && (!(is.null(y)))) {
-      points(x=x, y=y, col=color, lwd=widthXY);
+      points(x=x, y=y, col=color, lwd=widthXY, type=XYType);
     }
 
     # paint the lines, if wanted
     x <- d$xs;
     y <- d$f;
     if(plotXF && (widthXF > 0) && (!(is.null(y) || is.null(x)))) {
-      lines(x=x, y=y, col=color, lwd=widthXF);
+      lines(x=x, y=y, col=color, lwd=widthXF, type=XFType);
     }
   }
 

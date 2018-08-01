@@ -61,6 +61,10 @@ coordinate maximum}
   \item{x.add}{some additional \code{x} coordinates at which the function
 should be evaluated, or \code{TRUE} if the \code{x} coordinate minimum and
 maximum over all data sets should be added as evaluation points}
+  \item{XYType}{the type in which the XY data should be plotted, by default
+\code{"p"}, i.e., as points}
+  \item{XFType}{the type in which the XF data should be plotted, by default
+\code{"l"}, i.e., as lines}
 }}
 }
 \description{
