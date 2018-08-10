@@ -18,6 +18,7 @@
 #' @include distinctColors.R
 #' @importFrom graphics plot axis rect text
 #' @importFrom grDevices col2rgb
+#' @example examples/gantt.R
 plot.gantt <- function(x, xlab="Time", ylab="Machine",
                        prefix.job="J",
                        prefix.machine="M",
