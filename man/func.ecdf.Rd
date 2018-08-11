@@ -4,24 +4,24 @@
 \alias{func.ecdf}
 \title{Create an ECDF Function}
 \usage{
-func.ecdf(x, goal = 0, goalDim = 2L, timeDim = 1L, comparator = `<=`,
-  timeType = as.integer, time.min = 1L, time.max = NA_integer_,
+func.ecdf(x, goal = 0, goal.dim = 2L, time.dim = 1L, comparator = `<=`,
+  time.type = as.integer, time.min = 1L, time.max = NA_integer_,
   extract.run = identity)
 }
 \arguments{
 \item{x}{the data, maybe a list of matrices or a list of vectors/lists, where
-each element has at least the \code{goalDim} and \code{timeDim} dimension.}
+each element has at least the \code{goal.dim} and \code{time.dim} dimension.}
 
 \item{goal}{the goal value, i.e., the value which must be reached to be
 counted as success}
 
-\item{goalDim}{the dimension where where the goal values can be found}
+\item{goal.dim}{the dimension where where the goal values can be found}
 
-\item{timeDim}{the dimension where the time values can be found}
+\item{time.dim}{the dimension where the time values can be found}
 
 \item{comparator}{the comparator, usually \code{`<=`} or \code{`>=`}}
 
-\item{timeType}{the type function the time dimension, should be
+\item{time.type}{the type function the time dimension, should be
 \code{as.integer} or \code{identity}}
 
 \item{time.min}{the minimum time value to be used for the diagram, or

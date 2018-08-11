@@ -31,6 +31,7 @@ Collate:
     'batchPlotGroups.R'
     'distinctLineTypes.R'
     'ecdfFun.R'
+    'ecdf.R'
     'gantt.R'
     'goldenRatio.R'
     'plotColors.R'
