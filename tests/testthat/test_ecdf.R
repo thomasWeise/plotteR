@@ -1,6 +1,6 @@
-library("plotteR");
+library("plotteR")
+context("plot.ecdf")
 
-set.seed(10000L);
 time.max.pow <- 8;
 
 # create a single run, where the quality dimension reaches to end
@@ -22,20 +22,22 @@ make.run <- function(end) {
 make.runs <- function(n, m) {
   return(lapply(X=seq_len(n),
                 FUN=function(i) {
-                  if(i <= m) { end <- runif(n=1L, min=-10L, max=0L); }
-                  else       { end <- runif(n=1L, min=1L, max=100L); }
+                  if(i <= m) {
+                    if(runif(n=1L) < 0.5) {
+                      end <- runif(n=1L, min=-10L, max=0L);
+                    } else {
+                      end <- 0L;
+                    }
+                  } else {
+                    end <- runif(n=1L, min=1L, max=100L);
+                  }
                   return(make.run(end));
                 }))
 }
 
-# plot five example ECDFs, where the end results reach 3/20, 10/20, 5/20, 15/20,
-# and 19/20, respectively
-plot.ecdf(x = list(make.runs(20, 3),
-                   make.runs(20, 10),
-                   make.runs(20, 5),
-                   make.runs(20, 15),
-                   make.runs(20, 19)),
-          names=c("worst", "good", "bad", "better", "best"),
-          time.markers=c(1e2, 1e4, 1e6, 1e8),
-          log="x",
-          time.max=(10^time.max.pow));
+test_that("Test plot.ecdf random runs", {
+  plot.ecdf(list(make.runs(1, 0)));
+  plot.ecdf(list(make.runs(1, 1)));
+  plot.ecdf(list(make.runs(1, 0), make.runs(1, 1)));
+  plot.ecdf(list(make.runs(10, 0), make.runs(10, 1), make.runs(10, 5), make.runs(10, 10), make.runs(10, 9)));
+})
