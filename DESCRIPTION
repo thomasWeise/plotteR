@@ -34,6 +34,7 @@ Collate:
     'ecdfFun.R'
     'ecdf.R'
     'ertFun.R'
+    'ert.R'
     'gantt.R'
     'goldenRatio.R'
     'plotColors.R'

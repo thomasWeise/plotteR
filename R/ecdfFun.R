@@ -28,7 +28,7 @@ func.ecdf <- function(x,
                       comparator=`<=`,
                       time.type=as.integer,
                       time.min=1L,
-                      time.max=time.type(NA_integer_),
+                      time.max=time.type(NA_real_),
                       extract.run=identity) {
 
   # first, get the total number of runs

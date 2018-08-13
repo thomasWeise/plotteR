@@ -5,9 +5,9 @@
 \title{Create an ERT Function}
 \usage{
 func.ert(x, goal.dim = 2L, time.dim = 1L, comparator = `<=`,
-  time.type = as.integer, goal.type = identity, goal.min = goal.type(NA),
-  goal.max = goal.type(NA), time.max = time.type(NA),
-  extract.run = identity)
+  time.type = as.integer, goal.type = as.numeric,
+  goal.min = goal.type(NA), goal.max = goal.type(NA),
+  time.max = time.type(NA), extract.run = identity)
 }
 \arguments{
 \item{x}{the data, maybe a list of matrices or a list of vectors/lists, where
@@ -21,10 +21,10 @@ dimension.}
 \item{comparator}{the comparator, usually \code{`<=`} or \code{`>=`}}
 
 \item{time.type}{the type function the time dimension, should be
-\code{as.integer} or \code{identity}}
+\code{as.integer} or \code{as.numeric}}
 
 \item{goal.type}{the type function the goal dimension, should be
-\code{as.integer} or \code{identity}}
+\code{as.integer} or \code{as.numeric}}
 
 \item{goal.min}{the minimum goal value to use, or \code{NA} to use the
 minimal occuring value}

@@ -9,9 +9,9 @@
 #' @param time.dim the dimension where the time values can be found
 #' @param comparator the comparator, usually \code{`<=`} or \code{`>=`}
 #' @param time.type the type function the time dimension, should be
-#'   \code{as.integer} or \code{identity}
+#'   \code{as.integer} or \code{as.numeric}
 #' @param goal.type the type function the goal dimension, should be
-#'   \code{as.integer} or \code{identity}
+#'   \code{as.integer} or \code{as.numeric}
 #' @param time.max the maximum time value to be used, or \code{NA} to pick the
 #'   maximum time value of each run separately
 #' @param goal.min the minimum goal value to use, or \code{NA} to use the
@@ -29,7 +29,7 @@ func.ert <- function(x,
                      time.dim=1L,
                      comparator=`<=`,
                      time.type=as.integer,
-                     goal.type=identity,
+                     goal.type=as.numeric,
                      goal.min=goal.type(NA),
                      goal.max=goal.type(NA),
                      time.max=time.type(NA),
