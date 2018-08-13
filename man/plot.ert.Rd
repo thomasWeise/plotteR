@@ -23,7 +23,10 @@ vectors/lists], where each element has at least the \code{goal.dim} and
 \item{time.dim}{the dimension where the time values can be found}
 
 \item{time.type}{the type function the time dimension, should be
-\code{as.integer} or \code{identity}}
+\code{as.integer} or \code{as.numeric}}
+
+\item{goal.type}{the type function the goal dimension, should be
+\code{as.integer} or \code{as.numeric}}
 
 \item{goal.min}{the minimum goal value or \code{NA} to pick the minimum time
 value}

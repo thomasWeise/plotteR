@@ -8,7 +8,9 @@
 #' @param time.dim the dimension where the time values can be found
 #' @param comparator the comparator, usually \code{`<=`} or \code{`>=`}
 #' @param time.type the type function the time dimension, should be
-#'   \code{as.integer} or \code{identity}
+#'   \code{as.integer} or \code{as.numeric}
+#' @param goal.type the type function the goal dimension, should be
+#'   \code{as.integer} or \code{as.numeric}
 #' @param time.max the maximum time value to be used, or \code{NA} to pick the
 #'   maximum time value of any run
 #' @param goal.min the minimum goal value or \code{NA} to pick the minimum time
