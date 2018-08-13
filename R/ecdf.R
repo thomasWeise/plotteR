@@ -29,30 +29,31 @@
 #' @param goal.markers markers for the goal values
 #' @param time.markers markers for the time values
 #' @inheritDotParams graphics::plot
-#' @export plot.ecdf
+#' @export plot.func.ecdf
 #' @include ecdfFun.R
 #' @include funUtils.R
 #' @include distinctLineTypes.R
 #' @include distinctColors.R
 #' @importFrom graphics plot abline legend lines
-plot.ecdf <- function(x,
-                      goal=0,
-                      goal.dim=2L,
-                      time.dim=1L,
-                      time.type=as.integer,
-                      time.min=time.type(1L),
-                      time.max=time.type(NA_real_),
-                      goal.min=0,
-                      goal.max=1,
-                      extract.runs=identity,
-                      comparator=`<=`,
-                      extract.run=identity,
-                      lineTypeFun=lineTypes.distinct,
-                      colorFun=colors.distinct,
-                      names=NULL,
-                      goal.markers=c(0.2,0.4,0.6,0.8),
-                      time.markers=NULL,
-                      ...) {
+#' @example examples/ecdf.R
+plot.func.ecdf <- function(x,
+                           goal=0,
+                           goal.dim=2L,
+                           time.dim=1L,
+                           time.type=as.integer,
+                           time.min=time.type(1L),
+                           time.max=time.type(NA_real_),
+                           goal.min=0,
+                           goal.max=1,
+                           extract.runs=identity,
+                           comparator=`<=`,
+                           extract.run=identity,
+                           lineTypeFun=lineTypes.distinct,
+                           colorFun=colors.distinct,
+                           names=NULL,
+                           goal.markers=c(0.2,0.4,0.6,0.8),
+                           time.markers=NULL,
+                           ...) {
 
   # x becomes a list of lists
   if(!(identical(extract.runs, identity) &&
@@ -155,8 +156,6 @@ plot.ecdf <- function(x,
   }
   if(is.null(params$main)) {
     params["main"] <- list(NULL);
-  } else {
-    params$main <- NULL;
   }
   # invoke the plot
   do.call(plot, params);

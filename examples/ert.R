@@ -26,15 +26,15 @@ make.runs <- function(n, q.best, time.worst) {
 }
 
 # plot five example ERTs
-plot.ert(x = list(make.runs(20, 0.0, 1e6),
-                  make.runs(20, 0.5, 1e6),
-                  make.runs(20, 0.0, 1e4),
-                  make.runs(20, 0.5, 1e4),
-                  make.runs(20, 0.1, 1e5)),
-          names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
-          log="y",
-          time.max=(10^time.max.pow),
-          goal.min=0,
-          goal.max=1,
-          goal.markers = c(0.1, 0.5),
-          time.markers = c(1e6, 1e4, 1e5));
+plot.func.ert(x = list(make.runs(20, 0.0, 1e6),
+                       make.runs(20, 0.5, 1e6),
+                       make.runs(20, 0.0, 1e4),
+                       make.runs(20, 0.5, 1e4),
+                       make.runs(20, 0.1, 1e5)),
+               names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
+               log="y",
+               time.max=(10^time.max.pow),
+               goal.min=0,
+               goal.max=1,
+               goal.markers = c(0.1, 0.5),
+               time.markers = c(1e6, 1e4, 1e5));

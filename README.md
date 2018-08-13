@@ -264,7 +264,7 @@ With `plot.gantt`, we can plot simple Gantt charts, i.e., diagrams that can visu
 
 ### 2.5. Empirical Cumulative Distribution Functions (ECDFs)
 
-With `plot.ecdf`, you can plot Empirical Cumulative Distribution Functions (ECDFs). These are functions where a fraction of successes is plotted over a time axis. We often use those in optimization, e.g., to display how many of the independent runs of an experiment have solved a given problem until a certain point in time.
+With `plot.func.ecdf`, you can plot Empirical Cumulative Distribution Functions (ECDFs). These are functions where a fraction of successes is plotted over a time axis. We often use those in optimization, e.g., to display how many of the independent runs of an experiment have solved a given problem until a certain point in time.
 
     set.seed(10000L);
     time.max.pow <- 8;
@@ -296,22 +296,22 @@ With `plot.ecdf`, you can plot Empirical Cumulative Distribution Functions (ECDF
     
     # plot five example ECDFs, where the end results reach 3/20, 10/20, 5/20, 15/20,
     # and 19/20, respectively
-    plot.ecdf(x = list(make.runs(20, 3),
-                       make.runs(20, 10),
-                       make.runs(20, 5),
-                       make.runs(20, 15),
-                       make.runs(20, 19)),
-              names=c("worst", "good", "bad", "better", "best"),
-              time.markers=c(1e2, 1e4, 1e6, 1e8),
-              log="x",
-              time.max=(10^time.max.pow));
+    plot.func.ecdf(x = list(make.runs(20, 3),
+                            make.runs(20, 10),
+                            make.runs(20, 5),
+                            make.runs(20, 15),
+                            make.runs(20, 19)),
+                   names=c("worst", "good", "bad", "better", "best"),
+                   time.markers=c(1e2, 1e4, 1e6, 1e8),
+                   log="x",
+                   time.max=(10^time.max.pow));
 
 ![The example diagram with several ECDFs.](examples/ecdf.png)
 
 
 ### 2.6. Expected Running Time (ERT) Charts
 
-With `plot.ert`, you can plot carts illustrating the Expected Running Time (ERT). These are functions which estimate how long a process needs to reach a certain value.
+With `plot.func.ert`, you can plot carts illustrating the Expected Running Time (ERT). These are functions which estimate how long a process needs to reach a certain value.
 
     set.seed(10000L);
     
@@ -338,20 +338,19 @@ With `plot.ert`, you can plot carts illustrating the Expected Running Time (ERT)
       return(lapply(X=seq_len(n), FUN=make.run, q.best=q.best, time.worst=time.worst));
     }
     
-    # plot five example ECDFs, where the end results reach 3/20, 10/20, 5/20, 15/20,
-    # and 19/20, respectively
-    plot.ert(x = list(make.runs(20, 0.0, 1e6),
-                      make.runs(20, 0.5, 1e6),
-                      make.runs(20, 0.0, 1e4),
-                      make.runs(20, 0.5, 1e4),
-                      make.runs(20, 0.1, 1e5)),
-              names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
-              log="y",
-              time.max=(10^time.max.pow),
-              goal.min=0,
-              goal.max=1,
-              goal.markers = c(0.1, 0.5),
-              time.markers = c(1e6, 1e4, 1e5));
+    # plot five example ERTs
+    plot.func.ert(x = list(make.runs(20, 0.0, 1e6),
+                           make.runs(20, 0.5, 1e6),
+                           make.runs(20, 0.0, 1e4),
+                           make.runs(20, 0.5, 1e4),
+                           make.runs(20, 0.1, 1e5)),
+                   names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
+                   log="y",
+                   time.max=(10^time.max.pow),
+                   goal.min=0,
+                   goal.max=1,
+                   goal.markers = c(0.1, 0.5),
+                   time.markers = c(1e6, 1e4, 1e5));
 
 
 ![The example diagram with several ERT functions.](examples/ert.png)

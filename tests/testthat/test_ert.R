@@ -1,5 +1,5 @@
 library("plotteR")
-context("plot.ert")
+context("plot.func.ert")
 
 # create a single run
 make.run <- function(q.best, time.worst, ...) {
@@ -32,7 +32,7 @@ make.runs <- function(n, q.best, time.worst) {
   expect_false(file.exists(dest));
 
   pdf(dest, width=6, height=3);
-  plot.ert(data);
+  plot.func.ert(data);
 
   dev.off();
 
@@ -43,7 +43,7 @@ make.runs <- function(n, q.best, time.worst) {
   unlink(dest);
 }
 
-test_that("Test plot.ert random runs", {
+test_that("Test plot.func.ert random runs", {
   .tester(list(make.runs(20, 0.0, 1e6)));
   .tester(list(make.runs(20, 0.0, 1e6),
                make.runs(20, 0.5, 1e6)));

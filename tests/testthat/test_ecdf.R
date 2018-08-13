@@ -1,5 +1,5 @@
 library("plotteR")
-context("plot.ecdf")
+context("plot.func.ecdf")
 
 time.max.pow <- 8;
 
@@ -43,7 +43,7 @@ make.runs <- function(n, m) {
   expect_false(file.exists(dest));
 
   pdf(dest, width=6, height=3);
-  plot.ecdf(data);
+  plot.func.ecdf(data);
 
   dev.off();
 
@@ -54,7 +54,7 @@ make.runs <- function(n, m) {
   unlink(dest);
 }
 
-test_that("Test plot.ecdf random runs", {
+test_that("Test plot.func.ecdf random runs", {
   .tester(list(make.runs(1, 0)));
   .tester(list(make.runs(1, 1)));
   .tester(list(make.runs(1, 0), make.runs(1, 1)));
