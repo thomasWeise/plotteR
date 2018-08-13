@@ -36,7 +36,7 @@ plot.func.ecdf(x = list(make.runs(20, 3),
                         make.runs(20, 5),
                         make.runs(20, 15),
                         make.runs(20, 19)),
-               names=c("worst", "good", "bad", "better", "best"),
+               legend=c("worst", "good", "bad", "better", "best"),
                time.markers=c(1e2, 1e4, 1e6, 1e8),
                log="x",
                time.max=(10^time.max.pow));

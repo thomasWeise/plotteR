@@ -9,8 +9,8 @@
   time.max = time.type(NA_real_), goal.min = 0, goal.max = 1,
   extract.runs = identity, comparator = `<=`, extract.run = identity,
   lineTypeFun = lineTypes.distinct, colorFun = colors.distinct,
-  names = NULL, goal.markers = c(0.2, 0.4, 0.6, 0.8), time.markers = NULL,
-  ...)
+  goal.markers = c(0.2, 0.4, 0.6, 0.8), time.markers = NULL,
+  legend = NULL, legend.pos = "topleft", legend.cex = NA, ...)
 }
 \arguments{
 \item{x}{the data, maybe a list of [lists of matrices or a list of
@@ -51,11 +51,16 @@ types to use for a provided number of inputs}
 \item{colorFun}{the colors function, a function returning the color list to
 use for a provided number of inputs}
 
-\item{names}{the legend}
-
 \item{goal.markers}{markers for the goal values}
 
 \item{time.markers}{markers for the time values}
+
+\item{legend}{the legend names}
+
+\item{legend.pos}{the legend position (optional, default: topleft)}
+
+\item{legend.cex}{the character sizing for the legend, optional, default
+\code{NA}}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{
@@ -109,7 +114,7 @@ plot.func.ecdf(x = list(make.runs(20, 3),
                         make.runs(20, 5),
                         make.runs(20, 15),
                         make.runs(20, 19)),
-               names=c("worst", "good", "bad", "better", "best"),
+               legend=c("worst", "good", "bad", "better", "best"),
                time.markers=c(1e2, 1e4, 1e6, 1e8),
                log="x",
                time.max=(10^time.max.pow));

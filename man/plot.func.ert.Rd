@@ -10,8 +10,8 @@
   time.max = time.type(NA_real_), extract.run = identity,
   extract.runs = identity, comparator = `<=`,
   lineTypeFun = lineTypes.distinct, colorFun = colors.distinct,
-  names = NULL, goal.markers = c(0.2, 0.4, 0.6, 0.8), time.markers = NULL,
-  ...)
+  goal.markers = c(0.2, 0.4, 0.6, 0.8), time.markers = NULL,
+  legend = NULL, legend.pos = "bottomleft", legend.cex = NA, ...)
 }
 \arguments{
 \item{x}{the data, maybe a list of [lists of matrices or a list of
@@ -51,11 +51,16 @@ types to use for a provided number of inputs}
 \item{colorFun}{the colors function, a function returning the color list to
 use for a provided number of inputs}
 
-\item{names}{the legend}
-
 \item{goal.markers}{markers for the goal values}
 
 \item{time.markers}{markers for the time values}
+
+\item{legend}{the legend names}
+
+\item{legend.pos}{the legend position (optional, default: bottomleft)}
+
+\item{legend.cex}{the character sizing for the legend, optional, default
+\code{NA}}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{
@@ -104,11 +109,11 @@ plot.func.ert(x = list(make.runs(20, 0.0, 1e6),
                        make.runs(20, 0.0, 1e4),
                        make.runs(20, 0.5, 1e4),
                        make.runs(20, 0.1, 1e5)),
-               names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
-               log="y",
-               time.max=1e6,
-               goal.min=0,
-               goal.max=1,
-               goal.markers = c(0.1, 0.5),
-               time.markers = c(1e6, 1e4, 1e5));
+              legend=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
+              log="y",
+              time.max=1e6,
+              goal.min=0,
+              goal.max=1,
+              goal.markers = c(0.1, 0.5),
+              time.markers = c(1e6, 1e4, 1e5));
 }

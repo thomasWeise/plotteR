@@ -301,7 +301,7 @@ With `plot.func.ecdf`, you can plot Empirical Cumulative Distribution Functions 
                             make.runs(20, 5),
                             make.runs(20, 15),
                             make.runs(20, 19)),
-                   names=c("worst", "good", "bad", "better", "best"),
+                   legend=c("worst", "good", "bad", "better", "best"),
                    time.markers=c(1e2, 1e4, 1e6, 1e8),
                    log="x",
                    time.max=(10^time.max.pow));
@@ -344,13 +344,13 @@ With `plot.func.ert`, you can plot carts illustrating the Expected Running Time 
                            make.runs(20, 0.0, 1e4),
                            make.runs(20, 0.5, 1e4),
                            make.runs(20, 0.1, 1e5)),
-                   names=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
-                   log="y",
-                   time.max=(10^time.max.pow),
-                   goal.min=0,
-                   goal.max=1,
-                   goal.markers = c(0.1, 0.5),
-                   time.markers = c(1e6, 1e4, 1e5));
+                  legend=c("slow+good", "slow+bad", "fast+good", "fast+bad", "ok+ok"),
+                  log="y",
+                  time.max=(10^time.max.pow),
+                  goal.min=0,
+                  goal.max=1,
+                  goal.markers = c(0.1, 0.5),
+                  time.markers = c(1e6, 1e4, 1e5));
 
 
 ![The example diagram with several ERT functions.](examples/ert.png)

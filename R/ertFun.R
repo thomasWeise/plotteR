@@ -59,6 +59,7 @@ func.ert <- function(x,
                       # directly
                       return(goal.type(run[[goal.dim]]));
                     }
+                    # take the matrix column instead
                     return(goal.type(run[, goal.dim]));
                   }))), na.last=NA));
 

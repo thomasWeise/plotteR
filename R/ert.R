@@ -25,7 +25,10 @@
 #'   types to use for a provided number of inputs
 #' @param colorFun the colors function, a function returning the color list to
 #'   use for a provided number of inputs
-#' @param names the legend
+#' @param legend the legend names
+#' @param legend.pos the legend position (optional, default: bottomleft)
+#' @param legend.cex the character sizing for the legend, optional, default
+#'   \code{NA}
 #' @param goal.markers markers for the goal values
 #' @param time.markers markers for the time values
 #' @inheritDotParams graphics::plot
@@ -49,9 +52,11 @@ plot.func.ert <- function(x,
                           comparator=`<=`,
                           lineTypeFun=lineTypes.distinct,
                           colorFun=colors.distinct,
-                          names=NULL,
                           goal.markers=c(0.2,0.4,0.6,0.8),
                           time.markers=NULL,
+                          legend=NULL,
+                          legend.pos="bottomleft",
+                          legend.cex=NA,
                           ...) {
 
   # x becomes a list of lists
@@ -223,15 +228,20 @@ plot.func.ert <- function(x,
     lines(x=x[[i]]$x, y=y, col=col[[i]], lty=lty[[i]], type="s", lwd=lwd);
   }
 
-  # print the legend if necessar
-  if(!(is.null(names))) {
-    legend(x="bottomleft",
-           legend=names,
-           col=col,
-           text.col=col,
-           lwd=lwd,
-           bty="n",
-           lty=lty,
-           seg.len = (1.5*lwd));
+
+  # print the legend if necessary
+  if(!(is.null(legend) || is.null(legend.pos))) {
+    params <- list(x=legend.pos,
+                   legend=legend,
+                   col=col,
+                   text.col=col,
+                   lwd=lwd,
+                   bty="n",
+                   lty=lty,
+                   seg.len = (1.5*lwd));
+    if(!(is.null(legend.cex) || is.na(legend.cex))){
+      params$cex <- legend.cex;
+    }
+    do.call(graphics::legend, params);
   }
 }
