@@ -79,7 +79,8 @@ time.max.pow <- 8;
 # create a single run, where the quality dimension reaches to end
 make.run <- function(end) {
   repeat {
-    x <- sort(unique(as.integer(runif(n=20L, min=1L, max=(10^(runif(n=1L, min=2, max=time.max.pow)))))));
+    x <- sort(unique(as.integer(runif(n=20L, min=1L,
+                     max=(10^(runif(n=1L, min=2, max=time.max.pow)))))));
     if(length(x) == 20L) { break; }
   }
   repeat {
