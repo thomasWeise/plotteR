@@ -1,53 +1,7 @@
-.nfindInterval <- function(x, vec) findInterval(-x, -vec);
-
-# compute the time maximum
-.time.max <- function(x, time.dim, time.type) {
-
-  if(is.null(x) || (length(x) <= 0L)) {
-    # handle the case where no data is available
-    return(NA_integer_);
-  }
-
-  # compute the maximum time value anywhere in x
-  return(time.type(max(vapply(X=x,
-                             FUN=function(run) {
-                               dims <- dim(run);
-                               # the matrix dimension
-                               if(is.null(dims)) {
-                                 # if the matrix dimensions are null, we have a simple vector or list and can compare the goal dimension directly
-                                 return(time.type(run[[time.dim]]));
-                               }
-                               # return the time index
-                               return(time.type(max(run[, time.dim])));
-                             }, FUN.VALUE = time.type(0)))));
-}
-
-# compute the time minimum
-.time.min <- function(x, time.dim, time.type) {
-
-  if(is.null(x) || (length(x) <= 0L)) {
-    # handle the case where no data is available
-    return(NA_integer_);
-  }
-
-  # compute the minimum time value anywhere in x
-  return(time.type(min(vapply(X=x,
-                             FUN=function(run) {
-                               dims <- dim(run);
-                               # the matrix dimension
-                               if(is.null(dims)) {
-                                 # if the matrix dimensions are null, we have a simple vector or list and can compare the goal dimension directly
-                                 return(time.type(run[[time.dim]]));
-                               }
-                               # return the time index
-                               return(time.type(min(run[, time.dim])));
-                             }, FUN.VALUE = time.type(0)))));
-}
-
-
 #' @title Create an ECDF Function
-#' @description Create an ECDF function, i.e., a list with two membery \code{x}
-#'   and \code{y} that stand for the coordinates of the function.
+#' @description Create an Empirical Cumulative Distribution Function (ECDF)
+#'   function, i.e., a list with two membery \code{x} and \code{y} that stand
+#'   for the coordinates of the function.
 #' @param x the data, maybe a list of matrices or a list of vectors/lists, where
 #'   each element has at least the \code{goal.dim} and \code{time.dim} dimension.
 #' @param goal the goal value, i.e., the value which must be reached to be
@@ -66,6 +20,7 @@
 #' @return a \code{list(x=c(...), y=c(...))} where the two members \code{x} and
 #'   \code{y} will be vectors of corresponding coordinates
 #' @export func.ecdf
+#' @include funUtils.R
 func.ecdf <- function(x,
                       goal=0,
                       goal.dim=2L,
@@ -73,7 +28,7 @@ func.ecdf <- function(x,
                       comparator=`<=`,
                       time.type=as.integer,
                       time.min=1L,
-                      time.max=NA_integer_,
+                      time.max=time.type(NA_integer_),
                       extract.run=identity) {
 
   # first, get the total number of runs
@@ -86,69 +41,34 @@ func.ecdf <- function(x,
   }
 
   # create the function for searching in lists
-  if(comparator(1L, 2L)) {
-    # if the comparator is <= or <, we have a decreasing list
-    findFun <- .nfindInterval;
-  } else {
-    # otherwise, the comparator should be >= or >, so we have an increasing list
-    findFun <- findInterval;
-  }
+  findFun <- .make.findFun(comparator);
 
   # make sure we have a proper time minimum
   if(is.na(time.min) || is.null(time.min)) {
-    time.min <- .time.min(x=x,
-                          time.dim=time.dim,
-                          time.type=time.type);
+    time.min <- .dim.min(x=x,
+                         dim=time.dim,
+                         type=time.type);
   }
 
   # make sure we have a proper time maximum
   if(is.na(time.max) || is.null(time.max)) {
-    time.max <- .time.max(x=x,
-                          time.dim=time.dim,
-                          time.type=time.type);
+    time.max <- .dim.max(x=x,
+                         dim=time.dim,
+                         type=time.type);
   }
 
   # get the success times
-  times <- time.type(sort(vapply(X=x,
-                    FUN=function(run) {
-                      dims <- dim(run);
-                      # the matrix dimension
-                      if(is.null(dims)) {
-                        # if the matrix dimensions are null, we have a simple vector or list and can compare the goal dimension directly
-                        if(comparator(run[[goal.dim]], goal)) {
-                          # the goal was found, so return the time dimension
-                          return(time.type(run[[time.dim]]));
-                        }
-                        # the goal was not found, return NA
-                        return(NA_integer_);
-                      }
-
-                      # we have a matrix and need to find the right time value
-                      i <- findFun(goal, run[, goal.dim]);
-                      if((i < 0L) || (i > dims[1L])) { # not found
-                        return(NA_integer_);
-                      }
-
-                      if(!(comparator(run[i, goal.dim], goal))) {
-                        # maybe found??
-                        if(i >= dims[1L]) { #no
-                          return(NA_integer_);
-                        }
-                        i <- i + 1L;
-                        if(!(comparator(run[i, goal.dim], goal))) {
-                            # not found
-                            return(NA_integer_);
-                        }
-                      }
-
-                      # try to move upward as long as the comparison remains TRUE
-                      while((i > 1L) && (comparator(run[(i-1L), goal.dim], goal))) {
-                        i <- (i - 1L);
-                      }
-
-                      # return the time index
-                      return(time.type(run[i, time.dim]));
-                    }, FUN.VALUE = time.type(0)), na.last=NA));
+  times <- vapply(X=x, FUN=.find.time,
+                  FUN.VALUE = NA_integer_,
+                  goal=goal,
+                  goal.dim=goal.dim,
+                  time.dim=time.dim,
+                  time.max=time.max,
+                  time.type=time.type,
+                  comparator=comparator,
+                  findFun=findFun);
+  times[times < 0] <- NA_integer_;
+  times <- time.type(sort.int(times, na.last=NA));
 
   # we do this twice, to capture the cut-off of the list of times at the maximum
   # time as well

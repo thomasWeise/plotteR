@@ -5,11 +5,12 @@
 \title{Plot ECDF Functions}
 \usage{
 \method{plot}{ecdf}(x, goal = 0, goal.dim = 2L, time.dim = 1L,
-  time.min = 1L, time.max = NA_integer_, goal.min = 0, goal.max = 1,
-  time.type = as.integer, extract.runs = identity, comparator = `<=`,
-  extract.run = identity, lineTypeFun = lineTypes.distinct,
-  colorFun = colors.distinct, names = NULL, goal.markers = c(0.2, 0.4,
-  0.6, 0.8), time.markers = NULL, ...)
+  time.type = as.integer, time.min = time.type(1L),
+  time.max = time.type(NA_integer_), goal.min = 0, goal.max = 1,
+  extract.runs = identity, comparator = `<=`, extract.run = identity,
+  lineTypeFun = lineTypes.distinct, colorFun = colors.distinct,
+  names = NULL, goal.markers = c(0.2, 0.4, 0.6, 0.8), time.markers = NULL,
+  ...)
 }
 \arguments{
 \item{x}{the data, maybe a list of [lists of matrices or a list of
@@ -23,6 +24,9 @@ counted as success}
 
 \item{time.dim}{the dimension where the time values can be found}
 
+\item{time.type}{the type function the time dimension, should be
+\code{as.integer} or \code{identity}}
+
 \item{time.min}{the minimum time value to be used for the diagram, or
 \code{NA} to use the smallest time value in any run}
 
@@ -32,9 +36,6 @@ maximum time value of any run}
 \item{goal.min}{the minimum goal value}
 
 \item{goal.max}{the maximum goal value}
-
-\item{time.type}{the type function the time dimension, should be
-\code{as.integer} or \code{identity}}
 
 \item{extract.runs}{a function which can be used to extract the run sets from
 \code{x}, e.g., \code{identity}}

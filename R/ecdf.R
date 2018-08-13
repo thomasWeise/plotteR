@@ -30,17 +30,18 @@
 #' @inheritDotParams graphics::plot
 #' @export plot.ecdf
 #' @include ecdfFun.R
+#' @include funUtils.R
 #' @include distinctLineTypes.R
 #' @importFrom graphics plot abline legend lines
 plot.ecdf <- function(x,
                       goal=0,
                       goal.dim=2L,
                       time.dim=1L,
-                      time.min=1L,
-                      time.max=NA_integer_,
+                      time.type=as.integer,
+                      time.min=time.type(1L),
+                      time.max=time.type(NA_integer_),
                       goal.min=0,
                       goal.max=1,
-                      time.type=as.integer,
                       extract.runs=identity,
                       comparator=`<=`,
                       extract.run=identity,
@@ -62,10 +63,10 @@ plot.ecdf <- function(x,
   # get the global time minimum
   if(is.null(time.min) || is.na(time.min)) {
     time.min <- vapply(X=x,
-                       FUN=.time.min,
+                       FUN=.dim.min,
                        FUN.VALUE=NA_integer_,
-                       time.dim=time.dim,
-                       time.type=time.type);
+                       dim=time.dim,
+                       type=time.type);
     if(all(is.null(time.min) | is.na(time.min))) {
       time.min <- NA_integer_;
     } else {
@@ -76,10 +77,10 @@ plot.ecdf <- function(x,
   # get the global time maximum
   if(is.null(time.max) || is.na(time.max)) {
     time.max <- vapply(X=x,
-                       FUN=.time.max,
+                       FUN=.dim.max,
                        FUN.VALUE=NA_integer_,
-                       time.dim=time.dim,
-                       time.type=time.type);
+                       dim=time.dim,
+                       type=time.type);
     if(all(is.null(time.max) | is.na(time.max))) {
       time.max <- NA_integer_;
     } else {
