@@ -1,7 +1,7 @@
 Package: plotteR
 Type: Package
 Title: An R Package with Utilities for Graphics and Plots 
-Version: 0.8.10
+Version: 0.8.11
 Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Description: In this package, we put some simple utilities for graphics and plots. The main goal is to provide some wrapper around the `plot` function to make it easier to plot several data sets coming from a list (\code{\link{batchPlot.list}}) or a list of objects/lists (\code{\link{batchPlot.groups}}). These plots then can automatically use distinctive colors.
