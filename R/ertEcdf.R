@@ -21,8 +21,6 @@
 #'   from the run sets, e.g., \code{identity}
 #' @param extract.runs a function which can be used to extract the run sets from
 #'   \code{x}, e.g., \code{identity}
-#' @param extract.runss a function which can be used to extract the sets of run sets from
-#'   \code{x}, e.g., \code{identity}
 #' @param lineTypeFun the line type function, a function returning the line
 #'   types to use for a provided number of inputs
 #' @param colorFun the colors function, a function returning the color list to

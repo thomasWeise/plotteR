@@ -70,9 +70,6 @@ use for a provided number of inputs}
   \item{y}{the y coordinates of points in the plot, \emph{optional}
     if \code{x} is an appropriate structure.}
 }}
-
-\item{extract.runss}{a function which can be used to extract the sets of run sets from
-\code{x}, e.g., \code{identity}}
 }
 \description{
 Plot the Empirical Cumulative Distribution Functions (ECDFs) for
