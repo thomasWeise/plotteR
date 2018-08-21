@@ -31,6 +31,8 @@
 #'   \code{NA}
 #' @param goal.markers markers for the goal values
 #' @param time.markers markers for the time values
+#' @return a \code{list(x=c(time.min, time.max), y=c(goal.min, goal.max))} of
+#'   the minimum and maximum time and goal values encountered
 #' @inheritDotParams graphics::plot
 #' @export plot.func.ecdf
 #' @include ecdfFun.R
@@ -225,4 +227,6 @@ plot.func.ecdf <- function(x,
     }
     do.call(graphics::legend, params);
   }
+
+  return(list(x=c(time.min, time.max), y=c(goal.min, goal.max)));
 }

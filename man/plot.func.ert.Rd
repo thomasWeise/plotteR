@@ -71,6 +71,10 @@ use for a provided number of inputs}
     if \code{x} is an appropriate structure.}
 }}
 }
+\value{
+a \code{list(x=c(goal.min, goal.max), y=c(time.min, time.max))} of
+  the minimum and maximum time and goal values encountered
+}
 \description{
 Plot the Expected Running Time (ERT) functions for a couple of
   different datasets.

@@ -71,6 +71,10 @@ use for a provided number of inputs}
     if \code{x} is an appropriate structure.}
 }}
 }
+\value{
+a \code{list(x=c(time.min, time.max), y=c(goal.min, goal.max))} of
+  the minimum and maximum time and goal values encountered
+}
 \description{
 Plot the Empirical Cumulative Distribution Functions (ECDFs) for
   a couple of different datasets.

@@ -31,6 +31,8 @@
 #'   \code{NA}
 #' @param goal.markers markers for the goal values
 #' @param time.markers markers for the time values
+#' @return a \code{list(x=c(goal.min, goal.max), y=c(time.min, time.max))} of
+#'   the minimum and maximum time and goal values encountered
 #' @inheritDotParams graphics::plot
 #' @export plot.func.ert
 #' @include ertFun.R
@@ -244,4 +246,6 @@ plot.func.ert <- function(x,
     }
     do.call(graphics::legend, params);
   }
+
+  return(list(x=c(goal.min, goal.max), y=c(time.min, time.max)));
 }
