@@ -26,6 +26,9 @@ counted as success}
 \item{time.type}{the type function the time dimension, should be
 \code{as.integer} or \code{as.numeric}}
 
+\item{goal.type}{the type function the goal dimension, should be
+\code{as.integer} or \code{as.numeric}}
+
 \item{time.min}{the minimum time value to be used for the diagram, or
 \code{NA} to use the smallest time value in any run}
 
