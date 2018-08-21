@@ -59,7 +59,7 @@ func.ecdf <- function(x,
 
   # get the success times
   times <- vapply(X=x, FUN=.find.time,
-                  FUN.VALUE = NA_integer_,
+                  FUN.VALUE = time.type(NA_real_),
                   goal=goal,
                   goal.dim=goal.dim,
                   time.dim=time.dim,
@@ -67,8 +67,11 @@ func.ecdf <- function(x,
                   time.type=time.type,
                   comparator=comparator,
                   findFun=findFun);
-  times[times < 0] <- NA_integer_;
-  times <- time.type(sort.int(times, na.last=NA));
+  #times[times < 0] <- time.type(NA_real_);
+  times <- times[is.finite(times) & times > 0];
+  if(length(times) > 0) {
+    times <- time.type(sort.int(times, na.last=NA));
+  }
 
   # we do this twice, to capture the cut-off of the list of times at the maximum
   # time as well

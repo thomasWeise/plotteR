@@ -78,7 +78,7 @@ plot.func.ecdf <- function(x,
     if(all(is.null(time.min) | is.na(time.min))) {
       time.min <- time.type(NA);
     } else {
-      time.min <- time.type(min(time.min));
+      time.min <- time.type(min(time.min, na.rm = TRUE));
     }
   }
 
@@ -92,7 +92,7 @@ plot.func.ecdf <- function(x,
     if(all(is.null(time.max) | is.na(time.max))) {
       time.max <- time.type(NA);
     } else {
-      time.max <- time.type(max(time.max));
+      time.max <- time.type(max(time.max, na.rm = TRUE));
     }
   }
 
@@ -110,25 +110,25 @@ plot.func.ecdf <- function(x,
   # re-compute minimum time
   if(is.null(time.min) || is.na(time.min)) {
     time.min = time.type(min(vapply(X=x,
-                             FUN=function(l) min(l$x),
+                             FUN=function(l) min(l$x, na.rm = TRUE),
                              FUN.VALUE = +Inf)));
   }
   # re-compute maximum time
   if(is.null(time.max) || is.na(time.max)) {
     time.max = time.type(max(vapply(X=x,
-                             FUN=function(l) max(l$x),
+                             FUN=function(l) max(l$x, na.rm = TRUE),
                              FUN.VALUE = -Inf)));
   }
   # compute quality minimum
   if(is.null(goal.min) || is.na(goal.min)) {
     goal.min = min(vapply(X=x,
-                          FUN=function(l) min(l$y),
+                          FUN=function(l) min(l$y, na.rm = TRUE),
                           FUN.VALUE=+Inf));
   }
   # compute quality maximum
   if(is.null(goal.max) || is.na(goal.max)) {
     goal.max = max(vapply(X=x,
-                          FUN=function(l) max(l$y),
+                          FUN=function(l) max(l$y, na.rm = TRUE),
                           FUN.VALUE=-Inf));
   }
 

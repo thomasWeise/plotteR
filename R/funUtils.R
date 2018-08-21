@@ -74,44 +74,64 @@
 .dim.max <- function(x, dim, type) {
   if(is.null(x) || (length(x) <= 0L)) {
     # handle the case where no data is available
-    return(NA_integer_);
+    return(type(NA_real_));
   }
 
-  # compute the maximum time value anywhere in x
-  return(type(max(vapply(X=x,
-         FUN=function(run) {
-           dims <- dim(run);
-           # the matrix dimension
-           if(is.null(dims)) {
-             # if the matrix dimensions are null, we have a simple vector or
-             # list and can compare the goal dimension directly
-             return(type(run[[dim]]));
-           }
-           # return the time index
-           return(type(max(run[, dim])));
-         }, FUN.VALUE = type(0)))));
+  # compute the maximum time values anywhere in x
+  x <-vapply(X=x,
+             FUN=function(run) {
+               # handle the case where there is no data in the run
+               if(is.null(run) || (length(run) <= 0L)) { return(type(NA)); }
+               # the matrix dimension
+               dims <- dim(run);
+               if(is.null(dims)) {
+                 # if the matrix dimensions are null, we have a simple vector or
+                 # list and can compare the goal dimension directly
+                 return(type(run[[dim]]));
+               }
+               # return the time index
+               return(type(max(run[, dim], na.rm=TRUE)));
+             }, FUN.VALUE = type(0));
+
+  # keep only the finite values
+  x <- x[is.finite(x)];
+  if(length(x) <= 0L) {
+    # handle the case where no finite data is available
+    return(type(NA_real_));
+  }
+  return(type(max(x)));
 }
 
 # compute the time minimum
 .dim.min <- function(x, dim, type) {
   if(is.null(x) || (length(x) <= 0L)) {
     # handle the case where no data is available
-    return(NA_integer_);
+    return(type(NA_real_));
   }
 
-  # compute the minimum time value anywhere in x
-  return(type(min(vapply(X=x,
+  # compute the minimum time values anywhere in x
+  x <- vapply(X=x,
          FUN=function(run) {
-           dims <- dim(run);
+           # handle the case where there is no data in the run
+           if(is.null(run) || (length(run) <= 0L)) { return(type(NA)); }
            # the matrix dimension
+           dims <- dim(run);
            if(is.null(dims)) {
              # if the matrix dimensions are null, we have a simple vector or
              # list and can compare the goal dimension directly
              return(type(run[[dim]]));
            }
            # return the time index
-           return(type(min(run[, dim])));
-         }, FUN.VALUE = type(0)))));
+           return(type(min(run[, dim], na.rm=TRUE)));
+         }, FUN.VALUE = type(0));
+
+  # keep only the finite values
+  x <- x[is.finite(x)];
+  if(length(x) <= 0L) {
+    # handle the case where no finite data is available
+    return(type(NA_real_));
+  }
+  return(type(min(x)));
 }
 
 # find the time when a specific goal is reached
@@ -124,6 +144,8 @@
 # @param comparator the comparator
 # @param findFun the finder function
 .find.time <- function(run, goal, goal.dim, time.dim, time.max, time.type, comparator, findFun) {
+  # handle the case where there is no data in the run
+  if(is.null(run) || (length(run) <= 0L)) { return(-1L); }
   # get the success times
   dims <- dim(run);
   # the matrix dimension
