@@ -58,7 +58,9 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
     pars$las <- las;
   }
   pars$type = "n";
-  pars$x <- range(xaxis);
+  if(is.null(pars$x)) {
+    pars$x <- range(xaxis);
+  }
   pars$y <- c(.gantt.min, machines- 1 + .gantt.max);
   pars$yaxt <- "n";
 
