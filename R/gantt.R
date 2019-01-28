@@ -1,8 +1,8 @@
 .gantt.min <- -1/3;
 .gantt.max <- 1/3;
 #' @title Plot a Gantt Chart
-#' @description Plot a Gantt chart based on a list \code{x} of lists of data. The
-#'   list contains one list for each machine. The first machine at index
+#' @description Plot a Gantt chart based on a list \code{x} of lists of data.
+#'   The list contains one list for each machine. The first machine at index
 #'   \code{1} will be refered to as \code{M0}, the second machine as \code{M1}
 #'   and so on. Each machine list, in turn, is a list of lists. Each element has
 #'   the form \code{list(job=, start=, end=)}, with elements denoting the job
@@ -17,6 +17,8 @@
 #' @param las the label orientation, see \link[graphics]{par}
 #' @param xaxs the x-axis type, see \link[graphics]{par}
 #' @param yaxs the y-axis type, see \link[graphics]{par}
+#' @param xrange the range for the x-axis, \code{NULL} for auto-determine
+#'   (default)
 #' @inheritDotParams graphics::plot -x -y
 #' @export plot.gantt
 #' @include distinctColors.R
@@ -28,14 +30,17 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
                        prefix.machine="M",
                        color.fun=colors.distinct,
                        print.jobs=TRUE,
-                       las=1L, xaxs="i", yaxs="i", ...) {
+                       las=1L, xaxs="i", yaxs="i",
+                       xrange=NULL, ...) {
 
   # first, get the range of the xaxis/time axis
-  xaxis <- unlist(lapply(X=x,
-                     FUN=function(d) {
-                       lapply(X=d,
-                              FUN=function(dd) c(dd$start, dd$end))
-              }));
+  if(is.null(xrange) || is.na(xrange) || (length(xrange) < 2L)) {
+    xrange <- range(unlist(lapply(X=x,
+                       FUN=function(d) {
+                         lapply(X=d,
+                                FUN=function(dd) c(dd$start, dd$end))
+                })));
+  }
 
   # get number of machines
   machines <- length(x);
@@ -57,10 +62,9 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
   if(is.null(pars$las)) {
     pars$las <- las;
   }
-  pars$type = "n";
-  if(is.null(pars$x)) {
-    pars$x <- range(xaxis);
-  }
+  pars$type <- "n";
+  pars$x <- xrange;
+
   pars$y <- c(.gantt.min, machines- 1 + .gantt.max);
   pars$yaxt <- "n";
 

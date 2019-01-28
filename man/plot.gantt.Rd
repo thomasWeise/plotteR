@@ -7,7 +7,7 @@
 \method{plot}{gantt}(x, xlab = "Time", ylab = "Machine",
   prefix.job = "J", prefix.machine = "M",
   color.fun = colors.distinct, print.jobs = TRUE, las = 1L,
-  xaxs = "i", yaxs = "i", ...)
+  xaxs = "i", yaxs = "i", xrange = NULL, ...)
 }
 \arguments{
 \item{x}{the x list, a list of lists}
@@ -30,14 +30,17 @@
 
 \item{yaxs}{the y-axis type, see \link[graphics]{par}}
 
+\item{xrange}{the range for the x-axis, \code{NULL} for auto-determine
+(default)}
+
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{
   \item{}{}
 }}
 }
 \description{
-Plot a Gantt chart based on a list \code{x} of lists of data. The
-  list contains one list for each machine. The first machine at index
+Plot a Gantt chart based on a list \code{x} of lists of data.
+  The list contains one list for each machine. The first machine at index
   \code{1} will be refered to as \code{M0}, the second machine as \code{M1}
   and so on. Each machine list, in turn, is a list of lists. Each element has
   the form \code{list(job=, start=, end=)}, with elements denoting the job
