@@ -4,9 +4,9 @@
 \alias{func.ecdf}
 \title{Create an ECDF Function}
 \usage{
-func.ecdf(x, goal = 0, goal.dim = 2L, time.dim = 1L, comparator = `<=`,
-  time.type = as.integer, time.min = 1L, time.max = time.type(NA_real_),
-  extract.run = identity)
+func.ecdf(x, goal = 0, goal.dim = 2L, time.dim = 1L,
+  comparator = `<=`, time.type = as.integer, time.min = 1L,
+  time.max = time.type(NA_real_), extract.run = identity)
 }
 \arguments{
 \item{x}{the data, maybe a list of matrices or a list of vectors/lists, where

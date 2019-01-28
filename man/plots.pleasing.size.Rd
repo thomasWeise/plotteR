@@ -4,8 +4,9 @@
 \alias{plots.pleasing.size}
 \title{Compute a Pleasing Plot Size}
 \usage{
-plots.pleasing.size(width = NULL, height = NULL, paperWidthFrac = NULL,
-  paperHeightFrac = NULL, portrait = FALSE, boundToPaper = TRUE)
+plots.pleasing.size(width = NULL, height = NULL,
+  paperWidthFrac = NULL, paperHeightFrac = NULL, portrait = FALSE,
+  boundToPaper = TRUE)
 }
 \arguments{
 \item{width}{the optional width of the plot}

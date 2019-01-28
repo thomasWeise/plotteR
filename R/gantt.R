@@ -13,6 +13,7 @@
 #' @param prefix.job the job name prefix
 #' @param prefix.machine the machine name prefix
 #' @param color.fun a function returning a color for a job
+#' @param print.jobs should we print the job ids?
 #' @inheritDotParams graphics::plot -x -y
 #' @export plot.gantt
 #' @include distinctColors.R
@@ -22,7 +23,8 @@
 plot.gantt <- function(x, xlab="Time", ylab="Machine",
                        prefix.job="J",
                        prefix.machine="M",
-                       color.fun=colors.distinct, ...) {
+                       color.fun=colors.distinct,
+                       print.jobs=TRUE, ...) {
 
   # first, get the range of the xaxis/time axis
   xaxis <- unlist(lapply(X=x,
@@ -69,19 +71,21 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
       # paint job
       rect(task$start, y.min, task$end, y.max, col=col, border=NA);
 
-      # try to choose a good text color
-      col.rgb <- col2rgb(col);
-      if(rgb2gray.luminosity(col.rgb[1L], col.rgb[2L], col.rgb[3L]) < 100) {
-        text.col = "white";
-      } else {
-        text.col = "black";
-      }
+      if(print.jobs) {
+        # try to choose a good text color
+        col.rgb <- col2rgb(col);
+        if(rgb2gray.luminosity(col.rgb[1L], col.rgb[2L], col.rgb[3L]) < 100) {
+          text.col = "white";
+        } else {
+          text.col = "black";
+        }
 
-      # add label
-      text(x=(0.5*(task$end + task$start)),
-           y=(i-1), adj=c(0.5, 0.5),
-           cex=1.1,
-           labels=paste(prefix.job, task$job, sep="", collapse=""), col=text.col);
+        # add label
+        text(x=(0.5*(task$end + task$start)),
+             y=(i-1), adj=c(0.5, 0.5),
+             cex=1.1,
+             labels=paste(prefix.job, task$job, sep="", collapse=""), col=text.col);
+      }
     }
   }
 }

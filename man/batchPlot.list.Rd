@@ -5,12 +5,13 @@
 \title{Plot a Set of Curves from a List of Data}
 \usage{
 batchPlot.list(data, xfun = function(x) x$x, yfun = function(x) x$y,
-  ffun = function(x) x$f, plotXY = TRUE, widthXY = 0.5, plotXF = TRUE,
-  widthXF = 1.5, names = NULL, colors = colors.distinct(length(data)),
-  xlab = "", ylab = "", legend = NULL, x.min.lower = NA,
-  x.min.upper = NA, x.max.lower = NA, x.max.upper = NA,
-  y.min.lower = NA, y.min.upper = NA, y.max.lower = NA,
-  y.max.upper = NA, x.add = NULL, XYType = "p", XFType = "l", ...)
+  ffun = function(x) x$f, plotXY = TRUE, widthXY = 0.5,
+  plotXF = TRUE, widthXF = 1.5, names = NULL,
+  colors = colors.distinct(length(data)), xlab = "", ylab = "",
+  legend = NULL, x.min.lower = NA, x.min.upper = NA,
+  x.max.lower = NA, x.max.upper = NA, y.min.lower = NA,
+  y.min.upper = NA, y.max.lower = NA, y.max.upper = NA,
+  x.add = NULL, XYType = "p", XFType = "l", ...)
 }
 \arguments{
 \item{data}{the data object, could be a list of lists or anything}

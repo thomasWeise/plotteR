@@ -4,8 +4,8 @@
 \alias{plot.func.ertEcdf}
 \title{Plot ERT-ECDF Functions}
 \usage{
-\method{plot}{func.ertEcdf}(x, goal = 0, goal.dim = 2L, time.dim = 1L,
-  time.type = as.integer, time.min = time.type(1L),
+\method{plot}{func.ertEcdf}(x, goal = 0, goal.dim = 2L,
+  time.dim = 1L, time.type = as.integer, time.min = time.type(1L),
   time.max = time.type(NA_real_), goal.min = 0, goal.max = 1,
   extract.runs = identity, comparator = `<=`, extract.run = identity,
   lineTypeFun = lineTypes.distinct, colorFun = colors.distinct,

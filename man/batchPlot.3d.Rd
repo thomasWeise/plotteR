@@ -4,8 +4,9 @@
 \alias{batchPlot.3d}
 \title{Plot 3D Data}
 \usage{
-batchPlot.3d(data, plotPoints = TRUE, model = .model, predict = .predict,
-  modelSteps = 20, legend = NULL, legendWidth = 0.3, ...)
+batchPlot.3d(data, plotPoints = TRUE, model = .model,
+  predict = .predict, modelSteps = 20, legend = NULL,
+  legendWidth = 0.3, ...)
 }
 \arguments{
 \item{data}{the data list, a list of lists where each element

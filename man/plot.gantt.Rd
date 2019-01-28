@@ -4,8 +4,9 @@
 \alias{plot.gantt}
 \title{Plot a Gantt Chart}
 \usage{
-\method{plot}{gantt}(x, xlab = "Time", ylab = "Machine", prefix.job = "J",
-  prefix.machine = "M", color.fun = colors.distinct, ...)
+\method{plot}{gantt}(x, xlab = "Time", ylab = "Machine",
+  prefix.job = "J", prefix.machine = "M",
+  color.fun = colors.distinct, print.jobs = TRUE, ...)
 }
 \arguments{
 \item{x}{the x list, a list of lists}
@@ -19,6 +20,8 @@
 \item{prefix.machine}{the machine name prefix}
 
 \item{color.fun}{a function returning a color for a job}
+
+\item{print.jobs}{should we print the job ids?}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{

@@ -6,8 +6,8 @@
 \usage{
 func.ertEcdf(x, goal = 0, goal.dim = 2L, time.dim = 1L,
   comparator = `<=`, time.type = as.integer, goal.type = as.numeric,
-  time.min = 1L, time.max = time.type(NA_real_), extract.run = identity,
-  extract.runs = identity)
+  time.min = 1L, time.max = time.type(NA_real_),
+  extract.run = identity, extract.runs = identity)
 }
 \arguments{
 \item{x}{the data, maybe a list of [lists of matrices or a list of
