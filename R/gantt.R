@@ -14,6 +14,9 @@
 #' @param prefix.machine the machine name prefix
 #' @param color.fun a function returning a color for a job
 #' @param print.jobs should we print the job ids?
+#' @param las the label orientation, see \link[graphics]{par}
+#' @param xaxs the x-axis type, see \link[graphics]{par}
+#' @param yaxs the y-axis type, see \link[graphics]{par}
 #' @inheritDotParams graphics::plot -x -y
 #' @export plot.gantt
 #' @include distinctColors.R
@@ -24,7 +27,8 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
                        prefix.job="J",
                        prefix.machine="M",
                        color.fun=colors.distinct,
-                       print.jobs=TRUE, ...) {
+                       print.jobs=TRUE,
+                       las=1L, xaxs="i", yaxs="i", ...) {
 
   # first, get the range of the xaxis/time axis
   xaxis <- unlist(lapply(X=x,
@@ -36,17 +40,38 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
   # get number of machines
   machines <- length(x);
 
+  # prepare parameters
+  pars <- list(...);
+  if(is.null(pars$xlab)) {
+    pars$xlab <- xlab;
+  }
+  if(is.null(pars$ylab)) {
+    pars$ylab <- ylab;
+  }
+  if(is.null(pars$xaxs)) {
+    pars$xaxs <- xaxs;
+  }
+  if(is.null(pars$yaxs)) {
+    pars$yaxs <- yaxs;
+  }
+  if(is.null(pars$las)) {
+    pars$las <- las;
+  }
+  pars$type = "n";
+  pars$x <- range(xaxis);
+  pars$y <- c(.gantt.min, machines- 1 + .gantt.max);
+  pars$yaxt <- "n";
+
   # paint plot area, but without y axis
-  plot(x=range(xaxis), y=c(.gantt.min, machines- 1 + .gantt.max),
-       type="n", yaxt="n", xlab=xlab, ylab=ylab,
-       ...);
+  do.call(plot, pars);
 
   # add y axis with machine labels
   M <- (0L:(machines-1));
-  axis(2, at=M,
-          labels=vapply(X=M,
-                        FUN=function(i) paste(prefix.machine, i, sep="", collapse=""),
-                        FUN.VALUE = ""));
+  axis(2L, at=M,
+           labels=vapply(X=M,
+                         FUN=function(i) paste(prefix.machine, i, sep="", collapse=""),
+                         FUN.VALUE = ""),
+       las=las);
 
   # now get the job names
   jobs <- sort(unique(unlist(lapply(X=x,
@@ -66,25 +91,28 @@ plot.gantt <- function(x, xlab="Time", ylab="Machine",
     y.max <- (i - 1 + .gantt.max);
     # iterate over jobs
     for(task in x[[i]]) {
-      # get job color
-      col <- colors[which(jobs == task$job)];
-      # paint job
-      rect(task$start, y.min, task$end, y.max, col=col, border=NA);
+    # only plot non-empty jobs
+       if(task$end > task$start) {
+        # get job color
+        col <- colors[which(jobs == task$job)];
+        # paint job
+        rect(task$start, y.min, task$end, y.max, col=col, border=NA);
 
-      if(print.jobs) {
-        # try to choose a good text color
-        col.rgb <- col2rgb(col);
-        if(rgb2gray.luminosity(col.rgb[1L], col.rgb[2L], col.rgb[3L]) < 100) {
-          text.col = "white";
-        } else {
-          text.col = "black";
+        if(print.jobs) {
+          # try to choose a good text color
+          col.rgb <- col2rgb(col);
+          if(rgb2gray.luminosity(col.rgb[1L], col.rgb[2L], col.rgb[3L]) < 100) {
+            text.col = "white";
+          } else {
+            text.col = "black";
+          }
+
+          # add label
+          text(x=(0.5*(task$end + task$start)),
+               y=(i-1), adj=c(0.5, 0.5),
+               cex=1.1,
+               labels=paste(prefix.job, task$job, sep="", collapse=""), col=text.col);
         }
-
-        # add label
-        text(x=(0.5*(task$end + task$start)),
-             y=(i-1), adj=c(0.5, 0.5),
-             cex=1.1,
-             labels=paste(prefix.job, task$job, sep="", collapse=""), col=text.col);
       }
     }
   }

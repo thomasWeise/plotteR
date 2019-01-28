@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{gantt}(x, xlab = "Time", ylab = "Machine",
   prefix.job = "J", prefix.machine = "M",
-  color.fun = colors.distinct, print.jobs = TRUE, ...)
+  color.fun = colors.distinct, print.jobs = TRUE, las = 1L,
+  xaxs = "i", yaxs = "i", ...)
 }
 \arguments{
 \item{x}{the x list, a list of lists}
@@ -22,6 +23,12 @@
 \item{color.fun}{a function returning a color for a job}
 
 \item{print.jobs}{should we print the job ids?}
+
+\item{las}{the label orientation, see \link[graphics]{par}}
+
+\item{xaxs}{the x-axis type, see \link[graphics]{par}}
+
+\item{yaxs}{the y-axis type, see \link[graphics]{par}}
 
 \item{...}{Arguments passed on to \code{graphics::plot}
 \describe{
